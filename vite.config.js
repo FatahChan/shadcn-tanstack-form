@@ -12,6 +12,7 @@ export default defineConfig({
     viteReact(),
     tailwindcss(),
   ],
+  base: process.env.BASE_URL || "/",
   test: {
     globals: true,
     environment: "jsdom",

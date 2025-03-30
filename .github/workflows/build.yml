@@ -37,6 +37,8 @@ jobs:
         cache: 'pnpm'
     - run: pnpm install
     - run: pnpm run build
+      env:
+        BASE_URL: /shadcn-tanstack-form
     - name: Setup Pages
       uses: actions/configure-pages@v5
     - name: Upload artifact
