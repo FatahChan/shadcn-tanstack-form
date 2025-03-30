@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const installation = `npx shadcn@latest add ${window.location.origin}/r/tanstack-form.json`;
+const installation = `npx shadcn@latest add ${window.location.origin}${import.meta.env.VITE_BASE_URL}/r/tanstack-form.json`;
 const usage = `import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
