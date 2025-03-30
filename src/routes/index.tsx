@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const installation = `npx shadcn@latest add ${window.location.origin}${import.meta.env.VITE_BASE_URL}/r/tanstack-form.json`;
+const installation = `npx shadcn@latest add ${window.location.origin}${import.meta.env.VITE_BASE_URL ?? ""}/r/tanstack-form.json`;
 const usage = `import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
@@ -98,7 +98,17 @@ export function Index() {
           elegant, accessible UI components with powerful form state management
           and validation capabilities. Built with React, TypeScript, and
           Tailwind CSS, this project demonstrates best practices for building
-          robust form experiences.
+          robust form experiences. <br />
+          <br />
+          <a
+            href="https://github.com/FatahChan/shadcn-tanstack-form"
+            className="underline hover:text-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ⭐ Star this project on GitHub
+          </a>{" "}
+          if you find it useful!
         </p>
         <p className="mt-4 text-muted-foreground text-sm">
           Built by{" "}

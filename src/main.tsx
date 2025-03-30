@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
+import { Toaster } from "./components/ui/sonner.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
 
 // Create a new router instance
@@ -33,6 +34,7 @@ if (rootElement && !rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <RouterProvider router={router} />
+      <Toaster />
     </StrictMode>,
   );
 }

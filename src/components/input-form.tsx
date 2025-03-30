@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
 import { useCallback } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const FormSchema = z.object({
@@ -18,7 +19,10 @@ export function InputForm() {
     defaultValues: {
       username: "",
     },
-    onSubmit: ({ value }) => console.log(value),
+    onSubmit: ({ formApi, value }) => {
+      formApi.reset();
+      toast.success(<span>Username: {value.username}</span>);
+    },
   });
 
   const handleSubmit = useCallback(
