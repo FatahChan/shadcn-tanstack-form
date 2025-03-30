@@ -36,7 +36,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
     - run: pnpm install
-    - run: BASE_URL=/shadcn-tanstack-form pnpm build
+    - run: VITE_BASE_URL=/shadcn-tanstack-form pnpm build
     - name: Setup Pages
       uses: actions/configure-pages@v5
     - name: Upload artifact
