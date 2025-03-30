@@ -36,13 +36,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
     - run: pnpm install
-    - name: Debug env vars
-      env:
-        VITE_PUBLIC_POSTHOG_KEY: ${{ vars.VITE_PUBLIC_POSTHOG_KEY }}
-        VITE_PUBLIC_POSTHOG_HOST: ${{ vars.VITE_PUBLIC_POSTHOG_HOST }}
-      run: |
-        echo "POSTHOG_KEY: $VITE_PUBLIC_POSTHOG_KEY"
-        echo "POSTHOG_HOST: $VITE_PUBLIC_POSTHOG_HOST"
     - name: Build
       env:
         VITE_PUBLIC_POSTHOG_KEY: ${{ vars.VITE_PUBLIC_POSTHOG_KEY }}
