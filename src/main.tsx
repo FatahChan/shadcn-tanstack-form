@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
+import { PostHogProvider } from "posthog-js/react";
 import { Toaster } from "./components/ui/sonner.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
 
@@ -27,14 +28,22 @@ declare module "@tanstack/react-router" {
   }
 }
 
+const options = {
+  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+};
 // Render the app
 const rootElement = document.getElementById("app");
 if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
-      <Toaster />
+      <PostHogProvider
+        apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
+        options={options}
+      >
+        <RouterProvider router={router} />
+        <Toaster />
+      </PostHogProvider>
     </StrictMode>,
   );
 }

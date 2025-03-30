@@ -19,6 +19,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      VITE_PUBLIC_POSTHOG_KEY: ${{ vars.VITE_PUBLIC_POSTHOG_KEY }}
+      VITE_PUBLIC_POSTHOG_HOST: ${{ vars.VITE_PUBLIC_POSTHOG_HOST }}
+
     strategy:
       matrix:
         node-version: [22.x]
