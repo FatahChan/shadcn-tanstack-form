@@ -1,0 +1,22 @@
+{
+    "$schema": "https://ui.shadcn.com/schema/registry.json",
+    "name": "acme",
+    "homepage": "https://acme.com",
+    "items": [
+        {
+            "name": "tanstack-form",
+            "type": "registry:ui",
+            "title": "TanStack Form",
+            "description": "A form component built with TanStack Form.",
+            "files": [
+              {
+                "path": "src/registry/new-york/tanstack-form/tanstack-form.tsx",
+                "type": "registry:ui"
+              }
+            ],
+            "dependencies": ["@tanstack/react-form", "zod"],
+            "registryDependencies": ["label"]
+          }
+    ]
+  }
+  
