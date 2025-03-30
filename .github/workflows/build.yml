@@ -19,10 +19,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      VITE_PUBLIC_POSTHOG_KEY: ${{ vars.VITE_PUBLIC_POSTHOG_KEY }}
-      VITE_PUBLIC_POSTHOG_HOST: ${{ vars.VITE_PUBLIC_POSTHOG_HOST }}
-
     strategy:
       matrix:
         node-version: [22.x]
@@ -40,7 +36,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
     - run: pnpm install
-    - run: VITE_BASE_URL=/shadcn-tanstack-form pnpm build
+    - run: VITE_PUBLIC_POSTHOG_KEY=${{ env.VITE_PUBLIC_POSTHOG_KEY }} VITE_PUBLIC_POSTHOG_HOST=${{ env.VITE_PUBLIC_POSTHOG_HOST }} VITE_BASE_URL=/shadcn-tanstack-form pnpm build
     - name: Setup Pages
       uses: actions/configure-pages@v5
     - name: Upload artifact
