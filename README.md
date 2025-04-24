@@ -14,17 +14,7 @@ A modern, type-safe form management solution that combines the elegant UI compon
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/fatahchan/shadcn-tanstack-form.git
-
-# Navigate to the project directory
-cd shadcn-tanstack-form
-
-# Install dependencies
-pnpm install
-
-# Start the development server
-pnpm dev
+npx shadcn@latest add https://fatahchan.github.io/shadcn-tanstack-form/r/tanstack-form.json
 ```
 
 ## Usage
