@@ -11,10 +11,16 @@ A modern, type-safe form management solution that combines the elegant UI compon
 - 🔄 Real-time form validation
 - 🎯 Best practices for form experiences
 
+## Documentation
+
+https://fatahchan.github.io/shadcn-tanstack-form/
+
 ## Installation
 
 ```bash
 npx shadcn@latest add https://fatahchan.github.io/shadcn-tanstack-form/r/tanstack-form.json
+## optionally install zod
+npm install zod
 ```
 
 ## Usage

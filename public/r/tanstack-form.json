@@ -5,8 +5,7 @@
   "title": "TanStack Form",
   "description": "A form component built with TanStack Form.",
   "dependencies": [
-    "@tanstack/react-form",
-    "zod"
+    "@tanstack/react-form"
   ],
   "registryDependencies": [
     "label"
