@@ -1,68 +1,68 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Build
+# name: Build
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
     
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+# permissions:
+#   contents: read
+#   pages: write
+#   id-token: write
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#     strategy:
+#       matrix:
+#         node-version: [22.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        version: 10
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-    - run: pnpm install
-    - name: Build
-      env:
-        VITE_PUBLIC_POSTHOG_KEY: ${{ vars.VITE_PUBLIC_POSTHOG_KEY }}
-        VITE_PUBLIC_POSTHOG_HOST: ${{ vars.VITE_PUBLIC_POSTHOG_HOST }}
-        VITE_BASE_URL: /shadcn-tanstack-form
-        VITE_ORIGIN: https://fatahchan.github.io
-        DEBUG: "vinxi:*"
-        NODE_ENV: "production"
-      run: |
-        pnpm build --verbose
-        echo "Checking if prerender output exists:"
-        ls -la .vinxi/prerender/ || echo "No prerender directory found"
-    - name: Debug build output
-      run: |
-        echo "Content of .output directory:"
-        ls -la .output/
-        echo "Content of .output/public directory:"
-        ls -la .output/public
-        echo "Content of .vinxi directory:"
-        ls -la .vinxi/
-        echo "Build logs:"
-        cat .vinxi/build.log || echo "No build log file found"
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./.output/public
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v4
+#     steps:
+#     - uses: actions/checkout@v4
+#     - name: Install pnpm
+#       uses: pnpm/action-setup@v4
+#       with:
+#         version: 10
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'pnpm'
+#     - run: pnpm install
+#     - name: Build
+#       env:
+#         VITE_PUBLIC_POSTHOG_KEY: ${{ vars.VITE_PUBLIC_POSTHOG_KEY }}
+#         VITE_PUBLIC_POSTHOG_HOST: ${{ vars.VITE_PUBLIC_POSTHOG_HOST }}
+#         VITE_BASE_URL: /shadcn-tanstack-form
+#         VITE_ORIGIN: https://fatahchan.github.io
+#         DEBUG: "vinxi:*"
+#         NODE_ENV: "production"
+#       run: |
+#         pnpm build --verbose
+#         echo "Checking if prerender output exists:"
+#         ls -la .vinxi/prerender/ || echo "No prerender directory found"
+#     - name: Debug build output
+#       run: |
+#         echo "Content of .output directory:"
+#         ls -la .output/
+#         echo "Content of .output/public directory:"
+#         ls -la .output/public
+#         echo "Content of .vinxi directory:"
+#         ls -la .vinxi/
+#         echo "Build logs:"
+#         cat .vinxi/build.log || echo "No build log file found"
+#     - name: Setup Pages
+#       uses: actions/configure-pages@v5
+#     - name: Upload artifact
+#       uses: actions/upload-pages-artifact@v3
+#       with:
+#         path: ./.output/public
+#     - name: Deploy to GitHub Pages
+#       uses: actions/deploy-pages@v4

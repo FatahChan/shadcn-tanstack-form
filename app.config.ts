@@ -1,7 +1,7 @@
 import { defineConfig } from "@tanstack/react-start/config";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
-import { baseURL, prerender } from "process";
+import { cloudflare } from 'unenv'
 
 const config = defineConfig({
   tsr: {
@@ -18,7 +18,8 @@ const config = defineConfig({
   },
 
   server: {
-    baseURL: "/shadcn-tanstack-form",
+    preset: 'cloudflare-pages',
+    unenv: cloudflare,
     prerender: {
       routes: ["/"],
     },
