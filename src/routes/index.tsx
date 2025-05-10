@@ -1,10 +1,10 @@
 import { InputForm } from "@/components/input-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { createFileRoute } from "@tanstack/react-router";
 import { PrismAsyncLight } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 export const Route = createFileRoute("/")({
   component: Index,
 });
@@ -70,89 +70,106 @@ export function InputForm() {
 `;
 export function Index() {
   return (
-    <main className="mx-auto w-4xl p-8">
-      <div className="mx-auto mb-8 max-w-2xl text-center">
-        <h1 className="mb-4 text-center font-bold text-2xl">
-          Shadcn UI + TanStack Form Integration
-        </h1>
-        <p className="text-muted-foreground">
-          This project showcases the integration of{" "}
-          <a
-            href="https://ui.shadcn.com"
-            className="underline hover:text-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Shadcn UI
-          </a>{" "}
-          components with{" "}
-          <a
-            href="https://tanstack.com/form"
-            className="underline hover:text-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            TanStack Form
-          </a>
-          , creating a modern, type-safe form management solution. It combines
-          elegant, accessible UI components with powerful form state management
-          and validation capabilities. Built with React, TypeScript, and
-          Tailwind CSS, this project demonstrates best practices for building
-          robust form experiences. <br />
-          <br />
-          <a
-            href="https://github.com/FatahChan/shadcn-tanstack-form"
-            className="underline hover:text-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ⭐ Star this project on GitHub
-          </a>{" "}
-          if you find it useful!
-        </p>
-        <p className="mt-4 text-muted-foreground text-sm">
-          Built by{" "}
+    <main className="dark min-h-screen bg-gradient-to-b from-background to-muted/20">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+        {/* Hero Section */}
+        <div className="text-center">
+          <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl">
+            Shadcn UI + TanStack Form
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            A modern, type-safe form management solution combining{" "}
+            <a
+              href="https://ui.shadcn.com"
+              className="font-medium text-primary hover:text-primary/80"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Shadcn UI
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://tanstack.com/form"
+              className="font-medium text-primary hover:text-primary/80"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              TanStack Form
+            </a>
+          </p>
+          <div className="mt-8 flex justify-center gap-4">
+            <a
+              href="https://github.com/FatahChan/shadcn-tanstack-form"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground hover:bg-primary/90"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ⭐ Star on GitHub
+            </a>
+          </div>
+        </div>
+
+        {/* Demo Section */}
+        <div className="mt-16 space-y-8">
+          <Card className="overflow-hidden border-2 border-muted bg-muted/5">
+            <CardHeader className="px-4 py-2">
+              <CardTitle className="font-medium text-sm">
+                Interactive Demo
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="px-4 py-2">
+              <InputForm />
+            </CardContent>
+          </Card>
+
+          {/* Installation & Usage */}
+          <div className="space-y-6">
+            <div className="rounded-lg border-2 border-muted bg-muted/5 p-6">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="font-semibold text-xl">Installation</h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigator.clipboard.writeText(installation)}
+                >
+                  Copy
+                </Button>
+              </div>
+              <PrismAsyncLight language="bash" style={dracula}>
+                {installation}
+              </PrismAsyncLight>
+            </div>
+
+            <div className="rounded-lg border-2 border-muted bg-muted/5 p-6">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="font-semibold text-xl">Usage</h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigator.clipboard.writeText(usage)}
+                >
+                  Copy
+                </Button>
+              </div>
+              <PrismAsyncLight language="jsx" style={dracula}>
+                {usage}
+              </PrismAsyncLight>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <footer className="mt-16 text-center text-muted-foreground text-sm">
+          Built with ❤️ by{" "}
           <a
             href="https://github.com/fatahchan"
-            className="underline hover:text-primary"
+            className="font-medium text-primary hover:text-primary/80"
             target="_blank"
             rel="noopener noreferrer"
           >
             @fatahchan
           </a>
-        </p>
-      </div>
-      <Card className="mx-auto w-sm">
-        <CardHeader>
-          <CardTitle>Input Form</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <InputForm />
-        </CardContent>
-      </Card>
-      <div className="relative">
-        <Label className="text-3xl">Installation </Label>
-        <Button
-          className="absolute top-0 right-0"
-          onClick={() => navigator.clipboard.writeText(installation)}
-        >
-          Copy
-        </Button>
-        <PrismAsyncLight language="bash" style={materialDark}>
-          {installation}
-        </PrismAsyncLight>
-      </div>
-      <div className="relative">
-        <Label className="text-3xl">Usage</Label>
-        <Button
-          className="absolute top-0 right-0"
-          onClick={() => navigator.clipboard.writeText(usage)}
-        >
-          Copy
-        </Button>
-        <PrismAsyncLight language="jsx" style={materialDark}>
-          {usage}
-        </PrismAsyncLight>
+        </footer>
       </div>
     </main>
   );
