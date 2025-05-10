@@ -8,6 +8,7 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { Button } from "@/components/ui/button";
+import { PostHogProvider } from "@/lib/posthog/provider";
 import appCss from "../styles.css?url";
 
 export const Route = createRootRouteWithContext()({
@@ -83,19 +84,22 @@ export const Route = createRootRouteWithContext()({
   ),
   notFoundComponent: () => (
     <RootDocument>
-      <div className="flex min-h-screen flex-col items-center justify-center p-24">
-        <p className="font-semibold text-3xl">Not Found</p>
-        <p className="mt-4">
-          Sorry, we couldn't find the page you were looking for.
-        </p>
-        <Button
-          asChild
-          className="mt-8 flex justify-center gap-4"
-          variant="outline"
-        >
-          <Link to="/">Go Home</Link>
-        </Button>
-      </div>
+      <PostHogProvider>
+        <div className="flex min-h-screen flex-col items-center justify-center p-24">
+          <p className="font-semibold text-3xl">Not Found</p>
+
+          <p className="mt-4">
+            Sorry, we couldn't find the page you were looking for.
+          </p>
+          <Button
+            asChild
+            className="mt-8 flex justify-center gap-4"
+            variant="outline"
+          >
+            <Link to="/">Go Home</Link>
+          </Button>
+        </div>
+      </PostHogProvider>
     </RootDocument>
   ),
 });
