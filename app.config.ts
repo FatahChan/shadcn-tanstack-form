@@ -21,7 +21,8 @@ const config = defineConfig({
     baseURL: "/shadcn-tanstack-form",
     prerender: {
       routes: ["/"],
-    },
+      crawlLinks: true,
+    }
   },
 });
 

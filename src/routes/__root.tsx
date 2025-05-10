@@ -42,35 +42,35 @@ export const Route = createRootRouteWithContext()({
       {
         rel: "icon",
         type: "image/png",
-        href: `${import.meta.env.VITE_BASE_URL ?? ""}/favicon-96x96.png`,
+        href: "favicon-96x96.png",
         sizes: "96x96",
       },
       {
         rel: "icon",
         type: "image/svg+xml",
-        href: `${import.meta.env.VITE_BASE_URL ?? ""}/favicon.svg`,
+        href: "favicon.svg",
       },
       {
         rel: "apple-touch-icon",
         sizes: "180x180",
-        href: `${import.meta.env.VITE_BASE_URL ?? ""}/apple-touch-icon.png`,
+        href: "apple-touch-icon.png",
       },
       {
         rel: "shortcut icon",
-        href: `${import.meta.env.VITE_BASE_URL ?? ""}/favicon.ico`,
+        href: "favicon.ico",
       },
       {
         rel: "manifest",
-        href: `${import.meta.env.VITE_BASE_URL ?? ""}/manifest.json`,
+        href: "manifest.json",
       },
       {
         rel: "apple-touch-icon",
-        href: `${import.meta.env.VITE_BASE_URL ?? ""}/apple-touch-icon.png`,
+        href: "apple-touch-icon.png",
         sizes: "180x180",
       },
       {
         rel: "apple-touch-icon",
-        href: `${import.meta.env.VITE_BASE_URL ?? ""}/logo192.png`,
+        href: "logo192.png",
       },
     ],
   }),
