@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
 import { PrismAsyncLight } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+import dracula from "react-syntax-highlighter/dist/esm/styles/prism/darcula";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const installation = `npx shadcn@latest add ${window.location.origin}${import.meta.env.VITE_BASE_URL ?? ""}/r/tanstack-form.json`;
+const installation = `npx shadcn@latest add ${import.meta.env.VITE_ORIGIN}/${import.meta.env.VITE_BASE_URL ?? ""}/r/tanstack-form.json`;
 const usage = `import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
@@ -70,18 +70,18 @@ export function InputForm() {
 `;
 export function Index() {
   return (
-    <main className="dark min-h-screen bg-gradient-to-b from-background to-muted/20">
+    <main className="min-h-screen">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center">
           <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl">
             Shadcn UI + TanStack Form
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto mt-6 max-w-2xl text-lg">
             A modern, type-safe form management solution combining{" "}
             <a
               href="https://ui.shadcn.com"
-              className="font-medium text-primary hover:text-primary/80"
+              className="font-medium"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -90,28 +90,28 @@ export function Index() {
             and{" "}
             <a
               href="https://tanstack.com/form"
-              className="font-medium text-primary hover:text-primary/80"
+              className="font-medium"
               target="_blank"
               rel="noopener noreferrer"
             >
               TanStack Form
             </a>
           </p>
-          <div className="mt-8 flex justify-center gap-4">
+          <Button asChild className="mt-8 flex justify-center gap-4">
             <a
               href="https://github.com/FatahChan/shadcn-tanstack-form"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground hover:bg-primary/90"
+              className="inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium"
               target="_blank"
               rel="noopener noreferrer"
             >
               ⭐ Star on GitHub
             </a>
-          </div>
+          </Button>
         </div>
 
         {/* Demo Section */}
         <div className="mt-16 space-y-8">
-          <Card className="overflow-hidden border-2 border-muted bg-muted/5">
+          <Card className="overflow-hidden border-2">
             <CardHeader className="px-4 py-2">
               <CardTitle className="font-medium text-sm">
                 Interactive Demo
@@ -124,7 +124,7 @@ export function Index() {
 
           {/* Installation & Usage */}
           <div className="space-y-6">
-            <div className="rounded-lg border-2 border-muted bg-muted/5 p-6">
+            <div className="rounded-lg border-2 p-6">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-semibold text-xl">Installation</h3>
                 <Button
@@ -140,7 +140,7 @@ export function Index() {
               </PrismAsyncLight>
             </div>
 
-            <div className="rounded-lg border-2 border-muted bg-muted/5 p-6">
+            <div className="rounded-lg border-2 p-6">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-semibold text-xl">Usage</h3>
                 <Button
@@ -159,11 +159,11 @@ export function Index() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 text-center text-muted-foreground text-sm">
+        <footer className="mt-16 text-center text-sm">
           Built with ❤️ by{" "}
           <a
             href="https://github.com/fatahchan"
-            className="font-medium text-primary hover:text-primary/80"
+            className="font-medium"
             target="_blank"
             rel="noopener noreferrer"
           >

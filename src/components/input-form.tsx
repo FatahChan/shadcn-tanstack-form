@@ -24,7 +24,7 @@ const FormSchema = z.object({
 
 export function InputForm() {
   const form = useAppForm({
-    validators: { onChange: FormSchema },
+    validators: { onBlur: FormSchema },
     defaultValues: {
       username: "",
       email: "",
@@ -48,7 +48,7 @@ export function InputForm() {
   return (
     <form.AppForm>
       <form className="space-y-6" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
           <form.AppField
             name="username"
             children={(field) => (

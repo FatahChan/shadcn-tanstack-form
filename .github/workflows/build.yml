@@ -41,12 +41,28 @@ jobs:
         VITE_PUBLIC_POSTHOG_KEY: ${{ vars.VITE_PUBLIC_POSTHOG_KEY }}
         VITE_PUBLIC_POSTHOG_HOST: ${{ vars.VITE_PUBLIC_POSTHOG_HOST }}
         VITE_BASE_URL: /shadcn-tanstack-form
-      run: pnpm build
+        VITE_ORIGIN: https://fatahchan.github.io
+        DEBUG: "vinxi:*"
+        NODE_ENV: "production"
+      run: |
+        pnpm build --verbose
+        echo "Checking if prerender output exists:"
+        ls -la .vinxi/prerender/ || echo "No prerender directory found"
+    - name: Debug build output
+      run: |
+        echo "Content of .output directory:"
+        ls -la .output/
+        echo "Content of .output/public directory:"
+        ls -la .output/public
+        echo "Content of .vinxi directory:"
+        ls -la .vinxi/
+        echo "Build logs:"
+        cat .vinxi/build.log || echo "No build log file found"
     - name: Setup Pages
       uses: actions/configure-pages@v5
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ./dist
+        path: ./.output/public
     - name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4

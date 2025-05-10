@@ -1,3 +1,6 @@
 onlyBuiltDependencies:
   - '@biomejs/biome'
+  - '@parcel/watcher'
+  - core-js
   - esbuild
+  - msw
