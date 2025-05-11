@@ -30,8 +30,7 @@
                 "target": "components/forms/user/basic-info.tsx"
               }
             ],
-            "dependencies": ["@tanstack/react-form"],
-            "registryDependencies": ["https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json"]
+            "registryDependencies": ["https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json", "textarea"]
           }
     ]
   }

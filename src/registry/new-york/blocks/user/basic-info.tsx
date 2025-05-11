@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
+import { Textarea } from "@/components/ui/textarea";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -46,10 +47,10 @@ function BasicInfoForm() {
   return (
     <form.AppForm>
       <form
-        className="mx-auto w-full max-w-lg space-y-8 rounded-md border p-4 py-10"
+        className="@container mx-auto w-full max-w-lg space-y-8 rounded-md border p-4 py-10"
         onSubmit={handleSubmit}
       >
-        <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+        <div className="grid @md:grid-cols-2 grid-cols-1 items-start gap-4">
           <form.AppField
             name="username"
             children={(field) => (
@@ -118,7 +119,7 @@ function BasicInfoForm() {
               <field.FormItem className="space-y-1.5">
                 <field.FormLabel>Bio</field.FormLabel>
                 <field.FormControl>
-                  <Input
+                  <Textarea
                     placeholder="Tell us about yourself"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}

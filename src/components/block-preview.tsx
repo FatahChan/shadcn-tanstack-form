@@ -160,7 +160,7 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
                     <Terminal className="!size-3.5" />
                   )}
                   <span className="hidden font-mono text-xs md:block">
-                    pnpm dlx shadcn@latest add {category}-{title}
+                    pnpm dlx shadcn@latest add {slug}.json
                   </span>
                 </Button>
                 <Separator className="!h-4" orientation="vertical" />

@@ -25,5 +25,9 @@ function RouteComponent() {
     ),
   );
 
-  return <Component />;
+  return (
+    <div className="p-4">
+      <Component />
+    </div>
+  );
 }
