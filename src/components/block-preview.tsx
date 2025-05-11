@@ -37,8 +37,8 @@ const LGSIZE = 82;
 const DEFAULT_HEIGHT = 224;
 
 export const BlockPreview: React.FC<
-  RegistryItem & { previewOnly?: boolean }
-> = ({ previewOnly, ...props }) => {
+  RegistryItem & { previewOnly?: boolean; codeOnly?: boolean }
+> = ({ previewOnly, codeOnly, ...props }) => {
   const { name, files, title } = props;
   const content =
     files?.find((file) => file.type === "registry:block")?.content || "";
@@ -84,16 +84,20 @@ export const BlockPreview: React.FC<
             {content && (
               <>
                 <RadioGroup.Root className="flex gap-0.5">
-                  <RadioGroup.Item
-                    onClick={() => setMode("preview")}
-                    aria-label="Block preview"
-                    value="100"
-                    checked={mode === "preview"}
-                    className={radioItem}
-                  >
-                    <Eye className="size-3.5 sm:opacity-50" />
-                    <span className="hidden text-[13px] sm:block">Preview</span>
-                  </RadioGroup.Item>
+                  {!codeOnly && (
+                    <RadioGroup.Item
+                      onClick={() => setMode("preview")}
+                      aria-label="Block preview"
+                      value="100"
+                      checked={mode === "preview"}
+                      className={radioItem}
+                    >
+                      <Eye className="size-3.5 sm:opacity-50" />
+                      <span className="hidden text-[13px] sm:block">
+                        Preview
+                      </span>
+                    </RadioGroup.Item>
+                  )}
 
                   <RadioGroup.Item
                     onClick={() => setMode("code")}

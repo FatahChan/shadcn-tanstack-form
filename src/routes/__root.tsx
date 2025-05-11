@@ -110,7 +110,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="min-h-screen bg-background">
+      <body className="bg-background">
         {children}
         <Scripts />
       </body>

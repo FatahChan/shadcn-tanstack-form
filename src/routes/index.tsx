@@ -1,5 +1,7 @@
 import registry from "@/../registry.json";
 import BlockPreview from "@/components/block-preview";
+import { CodeBlock } from "@/components/code-block";
+import CodeSnippet from "@/components/code-snippet";
 import { Button } from "@/components/ui/button";
 import { registryItemSchema } from "@/schemas/registry-item";
 import { createFileRoute } from "@tanstack/react-router";
@@ -23,7 +25,7 @@ export function Index() {
   const { basicInfoBlock } = Route.useLoaderData();
   return (
     <main className="min-h-screen">
-      <div className="mx-auto flex max-w-6xl flex-col gap-16 px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center">
           <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl">
@@ -61,8 +63,21 @@ export function Index() {
           </Button>
         </div>
 
-        {/* Demo Section */}
-        <BlockPreview {...basicInfoBlock} />
+        {/** Get Started */}
+        <div className="flex flex-col gap-4">
+          <h3 className="font-bold text-2xl">Installation</h3>
+          <CodeSnippet
+            code={
+              "pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json"
+            }
+          />
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <h3 className="font-bold text-2xl">Usage</h3>
+          {/* Demo Section */}
+          <BlockPreview {...basicInfoBlock} />
+        </div>
 
         {/* Footer */}
         <footer className="text-center text-sm">
