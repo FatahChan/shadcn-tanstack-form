@@ -1,0 +1,11 @@
+{
+  "categories": ["forms", "auth"],
+  "title": "Login",
+  "description": "A login form component built with TanStack Form.",
+  "dependencies": ["zod"],
+  "registryDependencies": [
+    "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
+    "button",
+    "input"
+  ]
+}

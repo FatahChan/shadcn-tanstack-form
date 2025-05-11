@@ -1,15 +1,19 @@
+import registry from "@/../registry.json";
 import BlockPreview from "@/components/block-preview";
 import { Button } from "@/components/ui/button";
-import { blocks } from "@/data/blocks";
+import { registryItemSchema } from "@/schemas/registry-item";
 import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   loader: () => {
-    const basicInfoBlock = blocks.find((block) => block.slug === "basic-info");
+    const basicInfoBlock = registry.items.find(
+      (block) => block.name === "basic-info",
+    );
     if (!basicInfoBlock) {
       throw new Error("Basic info block not found");
     }
+    const parsedBasicInfoBlock = registryItemSchema.parse(basicInfoBlock);
     return {
-      basicInfoBlock,
+      basicInfoBlock: parsedBasicInfoBlock,
     };
   },
   component: Index,
@@ -61,7 +65,7 @@ export function Index() {
         <BlockPreview {...basicInfoBlock} />
 
         {/* Footer */}
-        <footer className="mt-16 text-center text-sm">
+        <footer className="text-center text-sm">
           Built with ❤️ by{" "}
           <a
             href="https://github.com/fatahchan"

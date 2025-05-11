@@ -1,0 +1,11 @@
+{
+  "categories": ["forms", "checkout"],
+  "title": "Shipping Info",
+  "description": "A shipping information form component built with TanStack Form.",
+  "dependencies": ["zod"],
+  "registryDependencies": [
+    "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
+    "button",
+    "input"
+  ]
+}

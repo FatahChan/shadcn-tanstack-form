@@ -11,6 +11,7 @@
     "lint": "biome lint",
     "check": "biome check --fix --unsafe",
     "registry:build": "shadcn build",
+    "registry:watch": "tsx watch src/scripts/blocks.ts",
     "pre-commit": "pnpm run check && pnpm run registry:build"
   },
   "dependencies": {
