@@ -13,7 +13,7 @@ A modern, type-safe form management solution that combines the elegant UI compon
 
 ## Documentation
 
-https://fatahchan.github.io/shadcn-tanstack-form/
+https://shadcn-tanstack-form.netlify.app/
 
 ## Installation
 
