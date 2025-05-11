@@ -54,7 +54,7 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
   const [mode, setMode] = useState<"preview" | "code">("preview");
   const { iframeHeight, measureRef } = useIframeHeight(preview, DEFAULT_HEIGHT);
 
-  const terminalCode = `pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/${category}-${slug}.json`;
+  const terminalCode = `pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/${slug}.json`;
 
   const [copied, copy] = useCopyToClipboard();
   const [cliCopied, cliCopy] = useCopyToClipboard();
