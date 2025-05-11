@@ -16,6 +16,21 @@
             ],
             "dependencies": ["@tanstack/react-form"],
             "registryDependencies": ["label"]
+          },
+          {
+            "name": "basic-info",
+            "type": "registry:block",
+            "title": "Basic Info",
+            "description": "A basic info form component built with TanStack Form.",
+            "categories": ["forms", "user"],
+            "files": [
+              {
+                "path": "src/registry/new-york/blocks/user/basic-info.tsx",
+                "type": "registry:block"
+              }
+            ],
+            "dependencies": ["@tanstack/react-form"],
+            "registryDependencies": ["https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json"]
           }
     ]
   }
