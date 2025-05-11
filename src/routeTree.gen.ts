@@ -12,12 +12,19 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as PreviewCategorySlugImport } from './routes/preview/$category.$slug'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PreviewCategorySlugRoute = PreviewCategorySlugImport.update({
+  id: '/preview/$category/$slug',
+  path: '/preview/$category/$slug',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/preview/$category/$slug': {
+      id: '/preview/$category/$slug'
+      path: '/preview/$category/$slug'
+      fullPath: '/preview/$category/$slug'
+      preLoaderRoute: typeof PreviewCategorySlugImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/preview/$category/$slug': typeof PreviewCategorySlugRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/preview/$category/$slug': typeof PreviewCategorySlugRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/preview/$category/$slug': typeof PreviewCategorySlugRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/preview/$category/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/preview/$category/$slug'
+  id: '__root__' | '/' | '/preview/$category/$slug'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PreviewCategorySlugRoute: typeof PreviewCategorySlugRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PreviewCategorySlugRoute: PreviewCategorySlugRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/preview/$category/$slug"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/preview/$category/$slug": {
+      "filePath": "preview/$category.$slug.tsx"
     }
   }
 }

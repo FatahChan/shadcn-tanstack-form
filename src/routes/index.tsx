@@ -1,77 +1,25 @@
-import { InputForm } from "@/components/input-form";
+import BlockPreview from "@/components/block-preview";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { blocks } from "@/data/blocks";
 import { createFileRoute } from "@tanstack/react-router";
-import { PrismAsyncLight } from "react-syntax-highlighter";
-import dracula from "react-syntax-highlighter/dist/esm/styles/prism/darcula";
-
 export const Route = createFileRoute("/")({
+  loader: () => {
+    const basicInfoBlock = blocks.find((block) => block.slug === "basic-info");
+    if (!basicInfoBlock) {
+      throw new Error("Basic info block not found");
+    }
+    return {
+      basicInfoBlock,
+    };
+  },
   component: Index,
 });
 
-const installation = `npx shadcn@latest add ${import.meta.env.VITE_ORIGIN}/${import.meta.env.VITE_BASE_URL ?? ""}/r/tanstack-form.json`;
-const usage = `import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useAppForm } from "@/components/ui/tanstack-form";
-import { useCallback } from "react";
-import { z } from "zod";
-
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
-
-export function InputForm() {
-  const form = useAppForm({
-    validators: { onChange: FormSchema },
-    defaultValues: {
-      username: "",
-    },
-    onSubmit: ({ value }) => console.log(value),
-  });
-
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      form.handleSubmit();
-    },
-    [form],
-  );
-  return (
-    <form.AppForm>
-      <form className="space-y-6" onSubmit={handleSubmit}>
-        <form.AppField
-          name="username"
-          children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Username</field.FormLabel>
-              <field.FormControl>
-                <Input
-                  placeholder="FatahChan"
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                />
-              </field.FormControl>
-              <field.FormDescription>
-                This is your public display name.
-              </field.FormDescription>
-              <field.FormMessage />
-            </field.FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </form.AppForm>
-  );
-}
-`;
 export function Index() {
+  const { basicInfoBlock } = Route.useLoaderData();
   return (
     <main className="min-h-screen">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-16 px-4 py-16 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center">
           <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl">
@@ -110,53 +58,7 @@ export function Index() {
         </div>
 
         {/* Demo Section */}
-        <div className="mt-16 space-y-8">
-          <Card className="overflow-hidden border-2">
-            <CardHeader className="px-4 py-2">
-              <CardTitle className="font-medium text-sm">
-                Interactive Demo
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="px-4 py-2">
-              <InputForm />
-            </CardContent>
-          </Card>
-
-          {/* Installation & Usage */}
-          <div className="space-y-6">
-            <div className="rounded-lg border-2 p-6">
-              <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-semibold text-xl">Installation</h3>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => navigator.clipboard.writeText(installation)}
-                >
-                  Copy
-                </Button>
-              </div>
-              <PrismAsyncLight language="bash" style={dracula}>
-                {installation}
-              </PrismAsyncLight>
-            </div>
-
-            <div className="rounded-lg border-2 p-6">
-              <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-semibold text-xl">Usage</h3>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => navigator.clipboard.writeText(usage)}
-                >
-                  Copy
-                </Button>
-              </div>
-              <PrismAsyncLight language="jsx" style={dracula}>
-                {usage}
-              </PrismAsyncLight>
-            </div>
-          </div>
-        </div>
+        <BlockPreview {...basicInfoBlock} />
 
         {/* Footer */}
         <footer className="mt-16 text-center text-sm">
