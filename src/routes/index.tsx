@@ -1,10 +1,9 @@
 import registry from "@/../registry.json";
 import BlockPreview from "@/components/block-preview";
-import { CodeBlock } from "@/components/code-block";
 import CodeSnippet from "@/components/code-snippet";
 import { Button } from "@/components/ui/button";
 import { registryItemSchema } from "@/schemas/registry-item";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   loader: () => {
     const basicInfoBlock = registry.items.find(
@@ -73,9 +72,14 @@ export function Index() {
           />
         </div>
 
+        {/* Demo Section */}
         <div className="flex flex-col gap-4">
-          <h3 className="font-bold text-2xl">Usage</h3>
-          {/* Demo Section */}
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-2xl">Usage</h3>
+            <Button asChild variant="outline">
+              <Link to="/blocks">View All Blocks</Link>
+            </Button>
+          </div>
           <BlockPreview {...basicInfoBlock} />
         </div>
 

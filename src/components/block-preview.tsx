@@ -79,7 +79,7 @@ export const BlockPreview: React.FC<
       <div className="relative border-y">
         <div
           aria-hidden
-          className="-top-14 absolute inset-x-4 bottom-0 mx-auto max-w-7xl lg:inset-x-0"
+          className="-top-14 pointer-events-none absolute inset-x-4 bottom-0 mx-auto max-w-7xl lg:inset-x-0"
         >
           <div className="absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b from-transparent to-(--color-border) to-75%" />
           <div className="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-transparent to-(--color-border) to-75%" />
