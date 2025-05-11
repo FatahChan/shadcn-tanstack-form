@@ -26,7 +26,8 @@
             "files": [
               {
                 "path": "src/registry/new-york/blocks/user/basic-info.tsx",
-                "type": "registry:block"
+                "type": "registry:block",
+                "target": "components/forms/user/basic-info.tsx"
               }
             ],
             "dependencies": ["@tanstack/react-form"],
