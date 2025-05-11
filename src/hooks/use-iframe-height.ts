@@ -7,13 +7,12 @@ export const useIframeHeight = (preview: string, DEFAULT_HEIGHT = 224) => {
     `iframe-height-cache-${preview}`,
     DEFAULT_HEIGHT,
   );
-  const [measureRef, { height: measuredHeight = DEFAULT_HEIGHT }] =
-    useMeasure();
+  const [measureRef, { height: measuredHeight }] = useMeasure();
 
   const iframeHeight = useMemo(() => {
-    if (iframeHeightCache) return iframeHeightCache;
+    if (measuredHeight === null) return iframeHeightCache;
     return measuredHeight;
-  }, [iframeHeightCache, measuredHeight]);
+  }, [measuredHeight, iframeHeightCache]);
 
   useEffect(() => {
     if (!measuredHeight) return;

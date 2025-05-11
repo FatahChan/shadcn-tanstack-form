@@ -7,11 +7,12 @@ import {
 import { useIframeHeight } from "@/hooks/use-iframe-height";
 import { usePreload } from "@/hooks/use-preload";
 import { cn } from "@/lib/utils";
+import type { RegistryItem } from "@/schemas/registry-item";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { Link } from "@tanstack/react-router";
 import { Check, Code2, Copy, Eye, Maximize, Terminal } from "lucide-react";
 import type React from "react";
-import { lazy, useRef, useState } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 import {
   type ImperativePanelGroupHandle,
   Panel,
@@ -24,14 +25,7 @@ import { Button } from "./ui/button";
 const Iframe = lazy(() =>
   import("./iframe").then((module) => ({ default: module.Iframe })),
 );
-type Block = {
-  code?: string;
-  preview: string;
-  title?: string;
-  category?: string;
-  previewOnly?: boolean;
-  slug: string;
-};
+
 const radioItem =
   "rounded-(--radius) duration-200 flex items-center justify-center h-8 px-2.5 gap-2 transition-[color] data-[state=checked]:bg-muted";
 
@@ -42,19 +36,20 @@ const LGSIZE = 82;
 
 const DEFAULT_HEIGHT = 224;
 
-export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
-  code,
-  preview,
-  title,
-  category,
-  previewOnly,
-  slug,
-}) => {
+export const BlockPreview: React.FC<
+  RegistryItem & { previewOnly?: boolean; codeOnly?: boolean }
+> = ({ previewOnly, codeOnly, ...props }) => {
+  const { name, files, title } = props;
+  const content =
+    files?.find((file) => file.type === "registry:block")?.content || "";
+
+  const preview = `/preview/${name}`;
+
   const [width, setWidth] = useState(DEFAULTSIZE);
   const [mode, setMode] = useState<"preview" | "code">("preview");
-  const { iframeHeight, measureRef } = useIframeHeight(preview, DEFAULT_HEIGHT);
+  const { iframeHeight, measureRef } = useIframeHeight(name, DEFAULT_HEIGHT);
 
-  const terminalCode = `pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/${slug}.json`;
+  const terminalCode = `pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/${name}.json`;
 
   const [copied, copy] = useCopyToClipboard();
   const [cliCopied, cliCopy] = useCopyToClipboard();
@@ -66,8 +61,13 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
     root: null,
     rootMargin: "0px",
   });
-  const shouldLoadIframe = entry?.isIntersecting ?? false;
-  console.log(shouldLoadIframe);
+  const shouldLoadIframe = entry?.isIntersecting;
+
+  useEffect(() => {
+    if (shouldLoadIframe) {
+      blockRef(null);
+    }
+  }, [blockRef, shouldLoadIframe]);
 
   usePreload({
     link: preview,
@@ -79,7 +79,7 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
       <div className="relative border-y">
         <div
           aria-hidden
-          className="-top-14 absolute inset-x-4 bottom-0 mx-auto max-w-7xl lg:inset-x-0"
+          className="-top-14 pointer-events-none absolute inset-x-4 bottom-0 mx-auto max-w-7xl lg:inset-x-0"
         >
           <div className="absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b from-transparent to-(--color-border) to-75%" />
           <div className="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-transparent to-(--color-border) to-75%" />
@@ -87,19 +87,23 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
 
         <div className="relative z-10 mx-auto flex max-w-7xl justify-between py-1.5 pr-6 pl-8 [--color-border:var(--color-zinc-200)] md:py-2 lg:pr-2 lg:pl-6 dark:[--color-border:var(--color-zinc-800)]">
           <div className="-ml-3 flex items-center gap-3">
-            {code && (
+            {content && (
               <>
                 <RadioGroup.Root className="flex gap-0.5">
-                  <RadioGroup.Item
-                    onClick={() => setMode("preview")}
-                    aria-label="Block preview"
-                    value="100"
-                    checked={mode === "preview"}
-                    className={radioItem}
-                  >
-                    <Eye className="size-3.5 sm:opacity-50" />
-                    <span className="hidden text-[13px] sm:block">Preview</span>
-                  </RadioGroup.Item>
+                  {!codeOnly && (
+                    <RadioGroup.Item
+                      onClick={() => setMode("preview")}
+                      aria-label="Block preview"
+                      value="100"
+                      checked={mode === "preview"}
+                      className={radioItem}
+                    >
+                      <Eye className="size-3.5 sm:opacity-50" />
+                      <span className="hidden text-[13px] sm:block">
+                        Preview
+                      </span>
+                    </RadioGroup.Item>
+                  )}
 
                   <RadioGroup.Item
                     onClick={() => setMode("code")}
@@ -145,7 +149,7 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            {code && (
+            {content && (
               <>
                 <Button
                   onClick={() => cliCopy(terminalCode)}
@@ -160,13 +164,13 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
                     <Terminal className="!size-3.5" />
                   )}
                   <span className="hidden font-mono text-xs md:block">
-                    pnpm dlx shadcn@latest add {slug}.json
+                    pnpm dlx shadcn@latest add {name}.json
                   </span>
                 </Button>
                 <Separator className="!h-4" orientation="vertical" />
 
                 <Button
-                  onClick={() => copy(code)}
+                  onClick={() => copy(content)}
                   size="sm"
                   variant="ghost"
                   aria-label="copy code"
@@ -202,7 +206,7 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
           >
             <PanelGroup direction="horizontal" tagName="div" ref={ref}>
               <Panel
-                id={`block-${title}`}
+                id={`block-${name}`}
                 order={1}
                 onResize={(size) => {
                   setWidth(Number(size));
@@ -214,7 +218,7 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
                 <div ref={blockRef}>
                   {shouldLoadIframe ? (
                     <Iframe
-                      key={`${category}-${title}-iframe`}
+                      key={`${name}-iframe`}
                       loading={
                         iframeHeight !== DEFAULT_HEIGHT ? "eager" : "lazy"
                       }
@@ -261,7 +265,7 @@ export const BlockPreview: React.FC<Block & { previewOnly?: boolean }> = ({
           <div className="bg-white dark:bg-transparent">
             {mode === "code" && (
               <CodeBlock
-                code={code as string}
+                code={content}
                 lang="tsx"
                 className="min-h-56"
                 maxHeight={iframeHeight || DEFAULT_HEIGHT}

@@ -4,12 +4,6 @@
   "type": "registry:ui",
   "title": "TanStack Form",
   "description": "A form component built with TanStack Form.",
-  "dependencies": [
-    "@tanstack/react-form"
-  ],
-  "registryDependencies": [
-    "label"
-  ],
   "files": [
     {
       "path": "src/registry/new-york/tanstack-form/tanstack-form.tsx",

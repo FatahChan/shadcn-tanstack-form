@@ -1,15 +1,20 @@
+import registry from "@/../registry.json";
 import BlockPreview from "@/components/block-preview";
+import CodeSnippet from "@/components/code-snippet";
 import { Button } from "@/components/ui/button";
-import { blocks } from "@/data/blocks";
-import { createFileRoute } from "@tanstack/react-router";
+import { registryItemSchema } from "@/schemas/registry-item";
+import { Link, createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   loader: () => {
-    const basicInfoBlock = blocks.find((block) => block.slug === "basic-info");
+    const basicInfoBlock = registry.items.find(
+      (block) => block.name === "basic-info",
+    );
     if (!basicInfoBlock) {
       throw new Error("Basic info block not found");
     }
+    const parsedBasicInfoBlock = registryItemSchema.parse(basicInfoBlock);
     return {
-      basicInfoBlock,
+      basicInfoBlock: parsedBasicInfoBlock,
     };
   },
   component: Index,
@@ -19,7 +24,7 @@ export function Index() {
   const { basicInfoBlock } = Route.useLoaderData();
   return (
     <main className="min-h-screen">
-      <div className="mx-auto flex max-w-6xl flex-col gap-16 px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center">
           <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl">
@@ -57,11 +62,29 @@ export function Index() {
           </Button>
         </div>
 
+        {/** Get Started */}
+        <div className="flex flex-col gap-4">
+          <h3 className="font-bold text-2xl">Installation</h3>
+          <CodeSnippet
+            code={
+              "pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json"
+            }
+          />
+        </div>
+
         {/* Demo Section */}
-        <BlockPreview {...basicInfoBlock} />
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-2xl">Usage</h3>
+            <Button asChild variant="outline">
+              <Link to="/blocks">View All Blocks</Link>
+            </Button>
+          </div>
+          <BlockPreview {...basicInfoBlock} />
+        </div>
 
         {/* Footer */}
-        <footer className="mt-16 text-center text-sm">
+        <footer className="text-center text-sm">
           Built with ❤️ by{" "}
           <a
             href="https://github.com/fatahchan"

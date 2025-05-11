@@ -1,30 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, use, useEffect, useState } from "react";
 
-export const Route = createFileRoute("/preview/$category/$slug")({
+export const Route = createFileRoute("/preview/$name")({
   beforeLoad: ({ params }) => {
     return {
-      category: params.category,
-      slug: params.slug,
+      name: params.name,
     };
   },
   loader: ({ params }) => {
     return {
-      category: params.category,
-      slug: params.slug,
+      name: params.name,
     };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { category, slug } = Route.useLoaderData();
   const Component = use(
-    import(`../../registry/new-york/blocks/${category}/${slug}.tsx`).then(
-      (module) => module.default,
-    ),
+    import(
+      `../../registry/new-york/blocks/${Route.useLoaderData().name}.tsx`
+    ).then((m) => m.default),
   );
-
+  if (!Component) return null;
   return (
     <div className="p-4">
       <Component />

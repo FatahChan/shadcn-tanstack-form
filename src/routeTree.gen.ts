@@ -12,7 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as PreviewCategorySlugImport } from './routes/preview/$category.$slug'
+import { Route as BlocksIndexImport } from './routes/blocks/index'
+import { Route as PreviewNameImport } from './routes/preview/$name'
 
 // Create/Update Routes
 
@@ -22,9 +23,15 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const PreviewCategorySlugRoute = PreviewCategorySlugImport.update({
-  id: '/preview/$category/$slug',
-  path: '/preview/$category/$slug',
+const BlocksIndexRoute = BlocksIndexImport.update({
+  id: '/blocks/',
+  path: '/blocks/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PreviewNameRoute = PreviewNameImport.update({
+  id: '/preview/$name',
+  path: '/preview/$name',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +46,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/preview/$category/$slug': {
-      id: '/preview/$category/$slug'
-      path: '/preview/$category/$slug'
-      fullPath: '/preview/$category/$slug'
-      preLoaderRoute: typeof PreviewCategorySlugImport
+    '/preview/$name': {
+      id: '/preview/$name'
+      path: '/preview/$name'
+      fullPath: '/preview/$name'
+      preLoaderRoute: typeof PreviewNameImport
+      parentRoute: typeof rootRoute
+    }
+    '/blocks/': {
+      id: '/blocks/'
+      path: '/blocks'
+      fullPath: '/blocks'
+      preLoaderRoute: typeof BlocksIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/preview/$category/$slug': typeof PreviewCategorySlugRoute
+  '/preview/$name': typeof PreviewNameRoute
+  '/blocks': typeof BlocksIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/preview/$category/$slug': typeof PreviewCategorySlugRoute
+  '/preview/$name': typeof PreviewNameRoute
+  '/blocks': typeof BlocksIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/preview/$category/$slug': typeof PreviewCategorySlugRoute
+  '/preview/$name': typeof PreviewNameRoute
+  '/blocks/': typeof BlocksIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/preview/$category/$slug'
+  fullPaths: '/' | '/preview/$name' | '/blocks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/preview/$category/$slug'
-  id: '__root__' | '/' | '/preview/$category/$slug'
+  to: '/' | '/preview/$name' | '/blocks'
+  id: '__root__' | '/' | '/preview/$name' | '/blocks/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PreviewCategorySlugRoute: typeof PreviewCategorySlugRoute
+  PreviewNameRoute: typeof PreviewNameRoute
+  BlocksIndexRoute: typeof BlocksIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PreviewCategorySlugRoute: PreviewCategorySlugRoute,
+  PreviewNameRoute: PreviewNameRoute,
+  BlocksIndexRoute: BlocksIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +116,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/preview/$category/$slug"
+        "/preview/$name",
+        "/blocks/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/preview/$category/$slug": {
-      "filePath": "preview/$category.$slug.tsx"
+    "/preview/$name": {
+      "filePath": "preview/$name.tsx"
+    },
+    "/blocks/": {
+      "filePath": "blocks/index.tsx"
     }
   }
 }

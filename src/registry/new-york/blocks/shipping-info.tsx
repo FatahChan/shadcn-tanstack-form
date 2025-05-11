@@ -1,0 +1,226 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAppForm } from "@/components/ui/tanstack-form";
+import { useCallback } from "react";
+import type { FormHTMLAttributes } from "react";
+import { z } from "zod";
+
+const shippingSchema = z.object({
+  fullName: z.string().min(2, {
+    message: "Full name must be at least 2 characters long.",
+  }),
+  addressLine1: z.string().min(5, {
+    message: "Address must be at least 5 characters long.",
+  }),
+  addressLine2: z.string(),
+  city: z.string().min(2, {
+    message: "City must be at least 2 characters long.",
+  }),
+  state: z.string().min(2, {
+    message: "State must be at least 2 characters long.",
+  }),
+  postalCode: z.string().min(4, {
+    message: "Please enter a valid postal code.",
+  }),
+  phone: z.string().min(8, {
+    message: "Please enter a valid phone number.",
+  }),
+});
+
+interface ShippingFormProps
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+  onSubmit: (data: z.infer<typeof shippingSchema>) => void;
+  defaultValues?: z.infer<typeof shippingSchema>;
+}
+
+function ShippingForm({
+  onSubmit,
+  defaultValues,
+  className,
+  ...props
+}: ShippingFormProps) {
+  const form = useAppForm({
+    defaultValues: {
+      fullName: defaultValues?.fullName ?? "",
+      addressLine1: defaultValues?.addressLine1 ?? "",
+      addressLine2: defaultValues?.addressLine2 ?? "",
+      city: defaultValues?.city ?? "",
+      state: defaultValues?.state ?? "",
+      postalCode: defaultValues?.postalCode ?? "",
+      phone: defaultValues?.phone ?? "",
+    },
+    validators: { onBlur: shippingSchema },
+    onSubmit: ({ value }) => {
+      onSubmit(value);
+    },
+  });
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      form.handleSubmit();
+    },
+    [form],
+  );
+
+  return (
+    <form.AppForm>
+      <form
+        className="mx-auto w-full max-w-lg space-y-6 rounded-lg border p-6"
+        onSubmit={handleSubmit}
+        {...props}
+      >
+        <form.AppField
+          name="fullName"
+          children={(field) => (
+            <field.FormItem>
+              <field.FormLabel>Full Name</field.FormLabel>
+              <field.FormControl>
+                <Input
+                  placeholder="John Doe"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
+              </field.FormControl>
+              <field.FormMessage />
+            </field.FormItem>
+          )}
+        />
+
+        <form.AppField
+          name="addressLine1"
+          children={(field) => (
+            <field.FormItem>
+              <field.FormLabel>Address Line 1</field.FormLabel>
+              <field.FormControl>
+                <Input
+                  placeholder="123 Main St"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
+              </field.FormControl>
+              <field.FormMessage />
+            </field.FormItem>
+          )}
+        />
+
+        <form.AppField
+          name="addressLine2"
+          children={(field) => (
+            <field.FormItem>
+              <field.FormLabel>Address Line 2 (Optional)</field.FormLabel>
+              <field.FormControl>
+                <Input
+                  placeholder="Apt 4B"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
+              </field.FormControl>
+              <field.FormMessage />
+            </field.FormItem>
+          )}
+        />
+
+        <div className="grid grid-cols-2 gap-4">
+          <form.AppField
+            name="city"
+            children={(field) => (
+              <field.FormItem>
+                <field.FormLabel>City</field.FormLabel>
+                <field.FormControl>
+                  <Input
+                    placeholder="New York"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                </field.FormControl>
+                <field.FormMessage />
+              </field.FormItem>
+            )}
+          />
+
+          <form.AppField
+            name="state"
+            children={(field) => (
+              <field.FormItem>
+                <field.FormLabel>State</field.FormLabel>
+                <field.FormControl>
+                  <Input
+                    placeholder="NY"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                </field.FormControl>
+                <field.FormMessage />
+              </field.FormItem>
+            )}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <form.AppField
+            name="postalCode"
+            children={(field) => (
+              <field.FormItem>
+                <field.FormLabel>Postal Code</field.FormLabel>
+                <field.FormControl>
+                  <Input
+                    placeholder="10001"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                </field.FormControl>
+                <field.FormMessage />
+              </field.FormItem>
+            )}
+          />
+
+          <form.AppField
+            name="phone"
+            children={(field) => (
+              <field.FormItem>
+                <field.FormLabel>Phone Number</field.FormLabel>
+                <field.FormControl>
+                  <Input
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                </field.FormControl>
+                <field.FormMessage />
+              </field.FormItem>
+            )}
+          />
+        </div>
+
+        <Button type="submit" className="w-full">
+          Save Shipping Information
+        </Button>
+      </form>
+    </form.AppForm>
+  );
+}
+
+ShippingForm.displayName = "ShippingForm";
+ShippingForm.__CATEGORIES = ["forms", "checkout"];
+ShippingForm.__TITLE = "Shipping Info";
+ShippingForm.__DESCRIPTION =
+  "A shipping information form component built with TanStack Form.";
+ShippingForm.__DEPENDENCIES = ["zod"];
+ShippingForm.__REGISTRY_DEPENDENCIES = [
+  "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
+  "button",
+  "input",
+];
+
+export default ShippingForm;
