@@ -12,7 +12,7 @@ import * as RadioGroup from "@radix-ui/react-radio-group";
 import { Link } from "@tanstack/react-router";
 import { Check, Code2, Copy, Eye, Maximize, Terminal } from "lucide-react";
 import type React from "react";
-import { lazy, useRef, useState } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 import {
   type ImperativePanelGroupHandle,
   Panel,
@@ -61,7 +61,13 @@ export const BlockPreview: React.FC<
     root: null,
     rootMargin: "0px",
   });
-  const shouldLoadIframe = entry?.isIntersecting ?? false;
+  const shouldLoadIframe = entry?.isIntersecting;
+
+  useEffect(() => {
+    if (shouldLoadIframe) {
+      blockRef(null);
+    }
+  }, [blockRef, shouldLoadIframe]);
 
   usePreload({
     link: preview,
