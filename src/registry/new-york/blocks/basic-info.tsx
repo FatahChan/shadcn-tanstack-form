@@ -51,6 +51,7 @@ function BasicInfoForm({
       <form
         className="@container mx-auto w-full max-w-lg space-y-8 rounded-md border p-4 py-10"
         onSubmit={handleSubmit}
+        noValidate
       >
         <div className="grid @md:grid-cols-2 grid-cols-1 items-start gap-4">
           <form.AppField

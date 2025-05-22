@@ -70,7 +70,7 @@ function ShippingForm({
       <form
         className="mx-auto w-full max-w-lg space-y-6 rounded-lg border p-6"
         onSubmit={handleSubmit}
-        action=""
+        noValidate
         {...props}
       >
         <form.AppField

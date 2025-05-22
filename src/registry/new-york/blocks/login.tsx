@@ -48,6 +48,7 @@ function LoginForm({
           "mx-auto w-full max-w-lg space-y-8 rounded-md border p-4 py-10",
           className,
         )}
+        noValidate
         {...props}
       >
         <form.AppField
