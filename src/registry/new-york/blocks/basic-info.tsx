@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
 import { Textarea } from "@/components/ui/textarea";
 import { useCallback } from "react";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const FormSchema = z.object({
@@ -18,11 +17,13 @@ const FormSchema = z.object({
     message: "Age must be at least 18 years.",
   }),
   bio: z.string().max(160, {
-    message: "Bio must not exceed 160 characters.",
+    message: "Bio must not exceed 160 characters, ss again.",
   }),
 });
 
-function BasicInfoForm() {
+function BasicInfoForm({
+  onSubmit,
+}: { onSubmit: (data: z.infer<typeof FormSchema>) => void }) {
   const form = useAppForm({
     validators: { onBlur: FormSchema },
     defaultValues: {
@@ -32,8 +33,8 @@ function BasicInfoForm() {
       bio: "",
     },
     onSubmit: ({ formApi, value }) => {
+      onSubmit(value);
       formApi.reset();
-      toast.success(<span>Username: {value.username}</span>);
     },
   });
 

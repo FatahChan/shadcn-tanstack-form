@@ -99,8 +99,6 @@ function RouteComponent() {
       </Popover>
       {blocks
         .filter((block) => {
-          console.log(block.categories);
-          console.log(filter);
           if (!filter || filter.length === 0) return true;
           return block.categories?.some((c) => filter.includes(c));
         })

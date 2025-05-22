@@ -4,4 +4,5 @@ onlyBuiltDependencies:
   - core-js
   - esbuild
   - lefthook
+  - msgpackr-extract
   - msw

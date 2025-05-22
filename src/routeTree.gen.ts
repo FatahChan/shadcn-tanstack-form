@@ -13,7 +13,10 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as BlocksIndexImport } from './routes/blocks/index'
-import { Route as PreviewNameImport } from './routes/preview/$name'
+import { Route as PreviewSignUpImport } from './routes/preview/sign-up'
+import { Route as PreviewShippingInfoImport } from './routes/preview/shipping-info'
+import { Route as PreviewLoginImport } from './routes/preview/login'
+import { Route as PreviewBasicInfoImport } from './routes/preview/basic-info'
 
 // Create/Update Routes
 
@@ -29,9 +32,27 @@ const BlocksIndexRoute = BlocksIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const PreviewNameRoute = PreviewNameImport.update({
-  id: '/preview/$name',
-  path: '/preview/$name',
+const PreviewSignUpRoute = PreviewSignUpImport.update({
+  id: '/preview/sign-up',
+  path: '/preview/sign-up',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PreviewShippingInfoRoute = PreviewShippingInfoImport.update({
+  id: '/preview/shipping-info',
+  path: '/preview/shipping-info',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PreviewLoginRoute = PreviewLoginImport.update({
+  id: '/preview/login',
+  path: '/preview/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PreviewBasicInfoRoute = PreviewBasicInfoImport.update({
+  id: '/preview/basic-info',
+  path: '/preview/basic-info',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,11 +67,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/preview/$name': {
-      id: '/preview/$name'
-      path: '/preview/$name'
-      fullPath: '/preview/$name'
-      preLoaderRoute: typeof PreviewNameImport
+    '/preview/basic-info': {
+      id: '/preview/basic-info'
+      path: '/preview/basic-info'
+      fullPath: '/preview/basic-info'
+      preLoaderRoute: typeof PreviewBasicInfoImport
+      parentRoute: typeof rootRoute
+    }
+    '/preview/login': {
+      id: '/preview/login'
+      path: '/preview/login'
+      fullPath: '/preview/login'
+      preLoaderRoute: typeof PreviewLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/preview/shipping-info': {
+      id: '/preview/shipping-info'
+      path: '/preview/shipping-info'
+      fullPath: '/preview/shipping-info'
+      preLoaderRoute: typeof PreviewShippingInfoImport
+      parentRoute: typeof rootRoute
+    }
+    '/preview/sign-up': {
+      id: '/preview/sign-up'
+      path: '/preview/sign-up'
+      fullPath: '/preview/sign-up'
+      preLoaderRoute: typeof PreviewSignUpImport
       parentRoute: typeof rootRoute
     }
     '/blocks/': {
@@ -67,41 +109,75 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/preview/$name': typeof PreviewNameRoute
+  '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/login': typeof PreviewLoginRoute
+  '/preview/shipping-info': typeof PreviewShippingInfoRoute
+  '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks': typeof BlocksIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/preview/$name': typeof PreviewNameRoute
+  '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/login': typeof PreviewLoginRoute
+  '/preview/shipping-info': typeof PreviewShippingInfoRoute
+  '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks': typeof BlocksIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/preview/$name': typeof PreviewNameRoute
+  '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/login': typeof PreviewLoginRoute
+  '/preview/shipping-info': typeof PreviewShippingInfoRoute
+  '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks/': typeof BlocksIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/preview/$name' | '/blocks'
+  fullPaths:
+    | '/'
+    | '/preview/basic-info'
+    | '/preview/login'
+    | '/preview/shipping-info'
+    | '/preview/sign-up'
+    | '/blocks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/preview/$name' | '/blocks'
-  id: '__root__' | '/' | '/preview/$name' | '/blocks/'
+  to:
+    | '/'
+    | '/preview/basic-info'
+    | '/preview/login'
+    | '/preview/shipping-info'
+    | '/preview/sign-up'
+    | '/blocks'
+  id:
+    | '__root__'
+    | '/'
+    | '/preview/basic-info'
+    | '/preview/login'
+    | '/preview/shipping-info'
+    | '/preview/sign-up'
+    | '/blocks/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PreviewNameRoute: typeof PreviewNameRoute
+  PreviewBasicInfoRoute: typeof PreviewBasicInfoRoute
+  PreviewLoginRoute: typeof PreviewLoginRoute
+  PreviewShippingInfoRoute: typeof PreviewShippingInfoRoute
+  PreviewSignUpRoute: typeof PreviewSignUpRoute
   BlocksIndexRoute: typeof BlocksIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PreviewNameRoute: PreviewNameRoute,
+  PreviewBasicInfoRoute: PreviewBasicInfoRoute,
+  PreviewLoginRoute: PreviewLoginRoute,
+  PreviewShippingInfoRoute: PreviewShippingInfoRoute,
+  PreviewSignUpRoute: PreviewSignUpRoute,
   BlocksIndexRoute: BlocksIndexRoute,
 }
 
@@ -116,15 +192,27 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/preview/$name",
+        "/preview/basic-info",
+        "/preview/login",
+        "/preview/shipping-info",
+        "/preview/sign-up",
         "/blocks/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/preview/$name": {
-      "filePath": "preview/$name.tsx"
+    "/preview/basic-info": {
+      "filePath": "preview/basic-info.tsx"
+    },
+    "/preview/login": {
+      "filePath": "preview/login.tsx"
+    },
+    "/preview/shipping-info": {
+      "filePath": "preview/shipping-info.tsx"
+    },
+    "/preview/sign-up": {
+      "filePath": "preview/sign-up.tsx"
     },
     "/blocks/": {
       "filePath": "blocks/index.tsx"

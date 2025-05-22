@@ -11,10 +11,12 @@
     "lint": "biome lint",
     "check": "biome check --fix --unsafe",
     "registry:build": "shadcn build",
-    "registry:watch": "tsx watch src/scripts/blocks.ts",
+    "registry:watch": "tsx watch src/scripts/watcher.effect.ts",
     "pre-commit": "pnpm run check && pnpm run registry:build"
   },
   "dependencies": {
+    "@effect/platform": "^0.82.4",
+    "@effect/platform-node": "^0.81.1",
     "@radix-ui/react-checkbox": "^1.3.1",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-popover": "^1.1.13",
@@ -29,6 +31,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "effect": "^3.15.2",
     "hast-util-to-jsx-runtime": "^2.3.6",
     "lucide-react": "^0.485.0",
     "next-themes": "^0.4.6",
