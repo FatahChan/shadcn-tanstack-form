@@ -17,7 +17,7 @@ const config = defineConfig({
   },
 
   server: {
-    preset: process.env.PRESET || "netlify",
+    preset: process.env.PRESET,
     prerender: {
       routes: ["/", "/preview/*", "/blocks/*"],
       crawlLinks: true,

@@ -47,7 +47,10 @@ export const BlockPreview: React.FC<
 
   const [width, setWidth] = useState(DEFAULTSIZE);
   const [mode, setMode] = useState<"preview" | "code">("preview");
-  const { iframeHeight, measureRef } = useIframeHeight(name, DEFAULT_HEIGHT);
+  const { iframeHeight, measureRef } = useIframeHeight({
+    slug: name,
+    defaultHeight: DEFAULT_HEIGHT,
+  });
 
   const terminalCode = `pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/${name}.json`;
 
@@ -199,10 +202,9 @@ export const BlockPreview: React.FC<
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 lg:border-r lg:px-0">
           <div
-            className={cn(
-              "bg-white dark:bg-transparent",
-              mode === "code" && "hidden",
-            )}
+            className={cn("bg-white dark:bg-transparent", {
+              hidden: mode !== "preview",
+            })}
           >
             <PanelGroup direction="horizontal" tagName="div" ref={ref}>
               <Panel
@@ -230,17 +232,21 @@ export const BlockPreview: React.FC<
                         measureRef(body);
                       }}
                       title={title}
-                      className={cn(
-                        "block h-(--iframe-height) min-h-56 w-full duration-200 will-change-auto",
-                      )}
-                      src={preview}
-                      id={`block-${title}`}
                       style={
                         {
                           "--iframe-height": `${iframeHeight}px`,
                           display: "block",
                         } as React.CSSProperties
                       }
+                      className={cn(
+                        "block h-(--iframe-height) min-h-56 w-full",
+                        {
+                          "duration-200 will-change-auto":
+                            iframeHeight === DEFAULT_HEIGHT,
+                        },
+                      )}
+                      src={preview}
+                      id={`block-${title}`}
                     />
                   ) : (
                     <div className="flex min-h-56 items-center justify-center">
@@ -262,15 +268,17 @@ export const BlockPreview: React.FC<
             </PanelGroup>
           </div>
 
-          <div className="bg-white dark:bg-transparent">
-            {mode === "code" && (
-              <CodeBlock
-                code={content}
-                lang="tsx"
-                className="min-h-56"
-                maxHeight={iframeHeight || DEFAULT_HEIGHT}
-              />
-            )}
+          <div
+            className={cn("bg-white dark:bg-transparent", {
+              hidden: mode !== "code",
+            })}
+          >
+            <CodeBlock
+              code={content}
+              lang="tsx"
+              className="min-h-32"
+              maxHeight={iframeHeight || DEFAULT_HEIGHT}
+            />
           </div>
         </div>
       </div>

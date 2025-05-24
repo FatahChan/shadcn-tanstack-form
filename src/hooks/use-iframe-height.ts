@@ -1,23 +1,35 @@
 import { useMeasure } from "@uidotdev/usehooks";
 import { useEffect, useMemo } from "react";
-import { useLocalStorage } from "./use-local-storage";
+import { useLocalStorageWithCommitRef } from "./use-local-storage";
 
-export const useIframeHeight = (preview: string, DEFAULT_HEIGHT = 224) => {
-  const [iframeHeightCache, setIframeHeightCache] = useLocalStorage(
-    `iframe-height-cache-${preview}`,
-    DEFAULT_HEIGHT,
-  );
-  const [measureRef, { height: measuredHeight }] = useMeasure();
+export const useIframeHeight = ({
+  slug,
+  defaultHeight = 224,
+}: {
+  slug: string;
+  defaultHeight?: number;
+}) => {
+  const [iframeHeightCache, setIframeHeightCache] =
+    useLocalStorageWithCommitRef(`iframe-height-cache-${slug}`, defaultHeight);
+  const [measureRef, { height: iframeMeasuredHeight }] = useMeasure();
 
   const iframeHeight = useMemo(() => {
-    if (measuredHeight === null) return iframeHeightCache;
-    return measuredHeight;
-  }, [measuredHeight, iframeHeightCache]);
+    if (!iframeHeightCache && iframeMeasuredHeight) return iframeMeasuredHeight;
+    if (iframeMeasuredHeight && iframeHeightCache < iframeMeasuredHeight) {
+      return iframeMeasuredHeight;
+    }
+    if (iframeHeightCache) {
+      return iframeHeightCache;
+    }
+    return defaultHeight;
+  }, [iframeMeasuredHeight, iframeHeightCache, defaultHeight]);
 
   useEffect(() => {
-    if (!measuredHeight) return;
-    setIframeHeightCache(measuredHeight);
-  }, [measuredHeight, setIframeHeightCache]);
+    if (!iframeMeasuredHeight) return;
+    if (iframeHeightCache < iframeMeasuredHeight) {
+      setIframeHeightCache(iframeMeasuredHeight);
+    }
+  }, [iframeMeasuredHeight, iframeHeightCache, setIframeHeightCache]);
 
   return {
     iframeHeight,

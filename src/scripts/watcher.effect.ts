@@ -18,7 +18,11 @@ const template = ({
 import Form from "@/registry/new-york/blocks/${blockSlug}";
 import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/preview/${blockSlug}")({
-  component: () => <Form onSubmit={(data) => console.log(data)} />,
+  component: () => (
+    <div className="flex h-screen w-full items-center justify-center py-4">
+      <Form onSubmit={(data) => console.log(data)} />
+    </div>
+  ),
 });
 `;
 class JsonParseError extends Data.Error<{
@@ -124,13 +128,13 @@ const updatePreviewAction = (blockSlug: string) =>
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
-    yield* Console.log("Updating preview");
+    yield* Console.log("Updating preview", blockSlug);
     const previewPath = path.join(process.cwd(), "src", "routes", "preview");
     yield* fs.writeFileString(
       path.join(previewPath, `${blockSlug}.tsx`),
       template({ blockSlug }),
     );
-    yield* Console.log("Updated preview");
+    yield* Console.log("Updated preview", blockSlug);
   });
 
 const updateRegistryAction = (blockSlug: string) =>
@@ -151,7 +155,7 @@ const updateRegistryAction = (blockSlug: string) =>
       blockMetadataSchema,
     );
 
-    yield* Console.log("Updating registry");
+    yield* Console.log("Updating registry", blockSlug);
 
     const registryJsonString = yield* fs.readFileString(registryPath);
     const registryJson = yield* parseJsonSchema(
@@ -168,11 +172,10 @@ const updateRegistryAction = (blockSlug: string) =>
       registryItem,
     );
     yield* writeRegistry(updatedRegistryJson);
-    yield* Console.log("Updated registry");
+    yield* Console.log("Updated registry", blockSlug);
   });
 
 const watcher = Effect.gen(function* () {
-  const path = yield* Path.Path;
   const fs = yield* FileSystem.FileSystem;
   const blocksPath = yield* getBlocksPath();
 
@@ -180,7 +183,8 @@ const watcher = Effect.gen(function* () {
 
   yield* Stream.runForEach(watchStream, (event) =>
     Effect.gen(function* () {
-      const blockSlug = path.basename(event.path);
+      const blockSlug = event.path.split(".").shift();
+      if (!blockSlug) return;
       yield* Effect.all([
         updatePreviewAction(blockSlug),
         updateRegistryAction(blockSlug),
@@ -195,7 +199,9 @@ const updateAll = Effect.gen(function* () {
   const blocksPath = yield* getBlocksPath();
 
   const files = yield* fs.readDirectory(blocksPath);
-  const slugs = files.filter((file) => file.endsWith(".tsx"));
+  const slugs = files
+    .filter((file) => file.endsWith(".tsx"))
+    .map((file) => file.split(".")[0]);
 
   yield* Effect.all(
     slugs.flatMap((slug) => [

@@ -1,0 +1,2 @@
+[build]
+  command = "VITE_COMMIT_REF=$COMMIT_REF vite build"

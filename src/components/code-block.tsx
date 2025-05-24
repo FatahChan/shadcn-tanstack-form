@@ -69,7 +69,7 @@ export function CodeBlock({
   return content ? (
     <div
       className={cn(
-        "[&_pre]:!bg-zinc-950 dark:[&_pre]:!bg-zinc-900/50 [&_code]:font-mono [&_code]:text-[13px]/2 [&_pre]:max-h-(--pre-max-height) [&_pre]:min-h-[32rem] [&_pre]:overflow-auto [&_pre]:border-l [&_pre]:p-4 [&_pre]:leading-snug",
+        "[&_pre]:!bg-zinc-950 dark:[&_pre]:!bg-zinc-900/50 [&_code]:font-mono [&_code]:text-[13px]/2 [&_pre]:max-h-(--pre-max-height) [&_pre]:overflow-auto [&_pre]:border-l [&_pre]:p-4 [&_pre]:leading-snug",
         className,
       )}
       style={{ "--pre-max-height": `${maxHeight}px` } as React.CSSProperties}
@@ -77,6 +77,14 @@ export function CodeBlock({
       {content}
     </div>
   ) : (
-    <pre className="rounded-lg bg-zinc-950 p-4">Loading...</pre>
+    <pre
+      className={cn(
+        "max-h-(--pre-max-height) rounded-lg bg-zinc-950 p-4",
+        className,
+      )}
+      style={{ "--pre-max-height": `${maxHeight}px` } as React.CSSProperties}
+    >
+      Loading...
+    </pre>
   );
 }
