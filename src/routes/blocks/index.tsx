@@ -1,19 +1,16 @@
 import registry from "@/../registry.json";
 import BlockPreview from "@/components/block-preview";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
   Popover,
-  PopoverAnchor,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { registryItemSchema } from "@/schemas/registry-item";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Filter } from "lucide-react";
-import { Fragment } from "react";
 import { z } from "zod";
 export const Route = createFileRoute("/blocks/")({
   validateSearch: z.object({

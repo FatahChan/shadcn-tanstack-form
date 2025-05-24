@@ -6,4 +6,4 @@ dist-ssr
 .env
 .output
 .vinxi
-.wrangler
+.netlify

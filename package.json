@@ -12,6 +12,7 @@
     "check": "biome check --fix --unsafe",
     "registry:build": "shadcn build",
     "registry:watch": "tsx watch src/scripts/watcher.effect.ts",
+    "dev:watch": "concurrently \"pnpm dev\" \"pnpm registry:watch\"",
     "pre-commit": "pnpm run check && pnpm run registry:build"
   },
   "dependencies": {
@@ -57,6 +58,7 @@
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
     "jsdom": "^26.0.0",
     "lefthook": "^1.11.12",
     "typescript": "^5.8.2",

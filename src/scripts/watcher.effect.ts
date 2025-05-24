@@ -180,41 +180,33 @@ const watcher = Effect.gen(function* () {
 
   yield* Stream.runForEach(watchStream, (event) =>
     Effect.gen(function* () {
-      const blockSlug = path.basename(
-        path.basename(event.path, ".tsx"),
-        ".json",
-      );
+      const blockSlug = path.basename(event.path);
       yield* Effect.all([
         updatePreviewAction(blockSlug),
         updateRegistryAction(blockSlug),
       ]);
     }),
-  ).pipe(
-    Effect.catchAll((error) => {
-      return Console.error(error);
-    }),
-  );
+  ).pipe(Effect.catchAll(Console.error));
 });
-const program = Effect.gen(function* () {
-  const path = yield* Path.Path;
+
+const updateAll = Effect.gen(function* () {
   const fs = yield* FileSystem.FileSystem;
 
   const blocksPath = yield* getBlocksPath();
 
   const files = yield* fs.readDirectory(blocksPath);
-  const slugs = files
-    .filter((file) => file.endsWith(".tsx"))
-    .map((file) => path.basename(file, ".tsx"));
+  const slugs = files.filter((file) => file.endsWith(".tsx"));
 
   yield* Effect.all(
-    slugs.map((slug) =>
-      Effect.all([updatePreviewAction(slug), updateRegistryAction(slug)]),
-    ),
-  ).pipe(
-    Effect.catchAll((error) => {
-      return Console.error(error);
-    }),
-  );
+    slugs.flatMap((slug) => [
+      updatePreviewAction(slug),
+      updateRegistryAction(slug),
+    ]),
+  ).pipe(Effect.catchAll(Console.error));
+});
+
+const program = Effect.gen(function* () {
+  yield* updateAll;
   yield* watcher;
 });
 

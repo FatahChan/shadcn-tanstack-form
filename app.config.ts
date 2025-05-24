@@ -17,7 +17,11 @@ const config = defineConfig({
   },
 
   server: {
-    preset: "node"
+    preset: process.env.PRESET || "netlify",
+    prerender: {
+      routes: ["/", "/preview/*", "/blocks/*"],
+      crawlLinks: true,
+    },
   },
 });
 
