@@ -1,4 +1,4 @@
-import { blockMetadataSchema } from "@/schemas/block-meta-data";
+import { componentMetadataSchema } from "@/schemas/component-meta-data";
 import { registrySchema } from "@/schemas/registry";
 import { registryItemSchema } from "@/schemas/registry-item";
 import { FileSystem, Path } from "@effect/platform";
@@ -7,7 +7,7 @@ import {
   NodeFileSystem,
   NodeRuntime,
 } from "@effect/platform-node";
-import { Console, Data, Effect, Stream, pipe } from "effect";
+import { Console, Data, Effect, Match, Stream } from "effect";
 import type { ZodType, z } from "zod";
 
 const template = ({
@@ -61,30 +61,44 @@ const getBlocksPath = () =>
     const path = yield* Path.Path;
     return path.join(process.cwd(), "src", "components", "blocks");
   });
+
+const getComponentsPath = () =>
+  Effect.gen(function* () {
+    const path = yield* Path.Path;
+    return path.join(process.cwd(), "src", "components", "form-fields");
+  });
+
 function createRegistryItem(
-  blockMetadata: z.infer<typeof blockMetadataSchema>,
-  code: string,
-  blockSlug: string,
+  componentMetadata: z.infer<typeof componentMetadataSchema>,
+  slug: string,
+  type: "registry:block" | "registry:component",
 ) {
-  return pipe(
-    Effect.succeed({
-      name: blockSlug,
-      type: "registry:block",
-      title: blockMetadata.title,
-      description: blockMetadata.description,
+  return Effect.gen(function* () {
+    const path = yield* Path.Path;
+    const registryPath = yield* Match.value(type).pipe(
+      Match.when("registry:block", () => getBlocksPath()),
+      Match.when("registry:component", () => getComponentsPath()),
+      Match.exhaustive,
+    );
+    const relativePath = path.relative(process.cwd(), registryPath);
+
+    const registryItem = yield* Effect.succeed({
+      name: slug,
+      type,
+      title: componentMetadata.title,
+      description: componentMetadata.description,
       files: [
         {
-          type: "registry:block",
-          path: `src/components/blocks/${blockSlug}.tsx`,
-          content: code,
+          type,
+          path: `${relativePath}/${slug}.tsx`,
         },
       ],
-      categories: blockMetadata.categories,
-      dependencies: blockMetadata.dependencies,
-      registryDependencies: blockMetadata.registryDependencies,
-    }),
-    Effect.flatMap((block) => parseSchema(block, registryItemSchema)),
-  );
+      categories: componentMetadata.categories,
+      dependencies: componentMetadata.dependencies,
+      registryDependencies: componentMetadata.registryDependencies,
+    });
+    return yield* parseSchema(registryItem, registryItemSchema);
+  });
 }
 
 function updateRegistry(
@@ -129,25 +143,22 @@ const updatePreviewAction = (blockSlug: string) =>
     yield* Console.log("Updated preview", blockSlug);
   });
 
-const updateRegistryAction = (blockSlug: string) =>
+const updateBlockRegistryAction = (slug: string) =>
   Effect.gen(function* () {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
     const blocksPath = yield* getBlocksPath();
     const registryPath = path.join(process.cwd(), "registry.json");
     const blockJson = yield* fs.readFileString(
-      path.join(blocksPath, `${blockSlug}.json`),
-    );
-    const code = yield* fs.readFileString(
-      path.join(blocksPath, `${blockSlug}.tsx`),
+      path.join(blocksPath, `${slug}.json`),
     );
 
     const blockMetadata = yield* parseJsonSchema(
       blockJson,
-      blockMetadataSchema,
+      componentMetadataSchema,
     );
 
-    yield* Console.log("Updating registry", blockSlug);
+    yield* Console.log("Updating registry", slug);
 
     const registryJsonString = yield* fs.readFileString(registryPath);
     const registryJson = yield* parseJsonSchema(
@@ -156,36 +167,88 @@ const updateRegistryAction = (blockSlug: string) =>
     );
     const registryItem = yield* createRegistryItem(
       blockMetadata,
-      code,
-      blockSlug,
+      slug,
+      "registry:block",
     );
     const updatedRegistryJson = yield* updateRegistry(
       registryJson,
       registryItem,
     );
     yield* writeRegistry(updatedRegistryJson);
-    yield* Console.log("Updated registry", blockSlug);
+    yield* Console.log("Updated registry", slug);
   });
+
+const updateComponentRegistryAction = (slug: string) => {
+  return Effect.gen(function* () {
+    const fs = yield* FileSystem.FileSystem;
+    const path = yield* Path.Path;
+    const componentsPath = yield* getComponentsPath();
+    const registryPath = path.join(process.cwd(), "registry.json");
+    const componentJson = yield* fs.readFileString(
+      path.join(componentsPath, `${slug}.json`),
+    );
+
+    const componentMetadata = yield* parseJsonSchema(
+      componentJson,
+      componentMetadataSchema,
+    );
+
+    yield* Console.log("Updating registry", slug);
+
+    const registryJsonString = yield* fs.readFileString(registryPath);
+    const registryJson = yield* parseJsonSchema(
+      registryJsonString,
+      registrySchema,
+    );
+    const registryItem = yield* createRegistryItem(
+      componentMetadata,
+      slug,
+      "registry:component",
+    );
+    const updatedRegistryJson = yield* updateRegistry(
+      registryJson,
+      registryItem,
+    );
+    yield* writeRegistry(updatedRegistryJson);
+    yield* Console.log("Updated registry", slug);
+  });
+};
 
 const watcher = Effect.gen(function* () {
   const fs = yield* FileSystem.FileSystem;
   const blocksPath = yield* getBlocksPath();
 
-  const watchStream = fs.watch(blocksPath);
+  const watchBlockStream = fs
+    .watch(blocksPath)
+    .pipe(Stream.map((event) => ({ from: blocksPath, ...event })));
+
+  const componentsPath = yield* getComponentsPath();
+  const watchComponentStream = fs
+    .watch(componentsPath)
+    .pipe(Stream.map((event) => ({ from: componentsPath, ...event })));
+
+  const watchStream = Stream.merge(watchBlockStream, watchComponentStream);
 
   yield* Stream.runForEach(watchStream, (event) =>
     Effect.gen(function* () {
-      const blockSlug = event.path.split(".").shift();
-      if (!blockSlug) return;
-      yield* Effect.all([
-        updatePreviewAction(blockSlug),
-        updateRegistryAction(blockSlug),
-      ]);
+      yield* Console.log("File changed", event);
+      const slug = event.path.split(".").shift();
+      if (!slug) return;
+
+      if (event.from === blocksPath) {
+        yield* Effect.all([
+          updatePreviewAction(slug),
+          updateBlockRegistryAction(slug),
+        ]);
+      }
+      if (event.from === componentsPath) {
+        yield* updateComponentRegistryAction(slug);
+      }
     }),
   ).pipe(Effect.catchAll(Console.error));
 });
 
-const updateAll = Effect.gen(function* () {
+const updateBlocksAll = Effect.gen(function* () {
   const fs = yield* FileSystem.FileSystem;
 
   const blocksPath = yield* getBlocksPath();
@@ -198,13 +261,29 @@ const updateAll = Effect.gen(function* () {
   yield* Effect.all(
     slugs.flatMap((slug) => [
       updatePreviewAction(slug),
-      updateRegistryAction(slug),
+      updateBlockRegistryAction(slug),
     ]),
   ).pipe(Effect.catchAll(Console.error));
 });
 
+const updateComponentsAll = Effect.gen(function* () {
+  const fs = yield* FileSystem.FileSystem;
+
+  const componentsPath = yield* getComponentsPath();
+
+  const files = yield* fs.readDirectory(componentsPath);
+  const slugs = files
+    .filter((file) => file.endsWith(".tsx"))
+    .map((file) => file.split(".")[0]);
+
+  yield* Effect.all(
+    slugs.map((slug) => updateComponentRegistryAction(slug)),
+  ).pipe(Effect.catchAll(Console.error));
+});
+
 const program = Effect.gen(function* () {
-  yield* updateAll;
+  yield* updateBlocksAll;
+  yield* updateComponentsAll;
   yield* watcher;
 });
 
