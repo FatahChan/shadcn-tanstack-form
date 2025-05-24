@@ -7,7 +7,7 @@ import {
   NodeFileSystem,
   NodeRuntime,
 } from "@effect/platform-node";
-import { Console, Data, Effect, Stream } from "effect";
+import { Console, Data, Effect, Stream, pipe } from "effect";
 import type { ZodType, z } from "zod";
 
 const template = ({
@@ -19,7 +19,7 @@ import Form from "@/registry/new-york/blocks/${blockSlug}";
 import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/preview/${blockSlug}")({
   component: () => (
-    <div className="flex w-full items-center justify-center py-4">
+    <div className="flex min-h-screen w-full items-center justify-center py-4">
       <Form onSubmit={(data) => console.log(data)} />
     </div>
   ),
@@ -59,39 +59,31 @@ function parseJsonSchema<S extends z.ZodType>(jsonString: string, schema: S) {
 const getBlocksPath = () =>
   Effect.gen(function* () {
     const path = yield* Path.Path;
-    const blocksPath = path.join(
-      process.cwd(),
-      "src",
-      "registry",
-      "new-york",
-      "blocks",
-    );
-    return blocksPath;
+    return path.join(process.cwd(), "src", "components", "blocks");
   });
 function createRegistryItem(
   blockMetadata: z.infer<typeof blockMetadataSchema>,
   code: string,
   blockSlug: string,
 ) {
-  return Effect.succeed({
-    name: blockSlug,
-    type: "registry:block",
-    title: blockMetadata.title,
-    description: blockMetadata.description,
-    files: [
-      {
-        type: "registry:block",
-        path: `src/registry/new-york/blocks/${blockSlug}.tsx`,
-        content: code,
-      },
-    ],
-    categories: blockMetadata.categories,
-    dependencies: blockMetadata.dependencies,
-    registryDependencies: blockMetadata.registryDependencies,
-  }).pipe(
-    Effect.flatMap((registryItem) =>
-      parseSchema(registryItem, registryItemSchema),
-    ),
+  return pipe(
+    Effect.succeed({
+      name: blockSlug,
+      type: "registry:block",
+      title: blockMetadata.title,
+      description: blockMetadata.description,
+      files: [
+        {
+          type: "registry:block",
+          path: `src/components/blocks/${blockSlug}.tsx`,
+          content: code,
+        },
+      ],
+      categories: blockMetadata.categories,
+      dependencies: blockMetadata.dependencies,
+      registryDependencies: blockMetadata.registryDependencies,
+    }),
+    Effect.flatMap((block) => parseSchema(block, registryItemSchema)),
   );
 }
 

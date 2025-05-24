@@ -1,4 +1,3 @@
-import { Schema } from "effect";
 import { z } from "zod";
 
 export const registryItemSchema = z.record(z.unknown()).and(

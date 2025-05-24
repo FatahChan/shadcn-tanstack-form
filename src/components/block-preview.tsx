@@ -22,10 +22,6 @@ import {
 import { CodeBlock } from "./code-block";
 import { Button } from "./ui/button";
 
-const Iframe = lazy(() =>
-  import("./iframe").then((module) => ({ default: module.Iframe })),
-);
-
 const radioItem =
   "rounded-(--radius) duration-200 flex items-center justify-center h-8 px-2.5 gap-2 transition-[color] data-[state=checked]:bg-muted";
 
@@ -219,7 +215,7 @@ export const BlockPreview: React.FC<
               >
                 <div ref={blockRef}>
                   {shouldLoadIframe ? (
-                    <Iframe
+                    <iframe
                       key={`${name}-iframe`}
                       loading={
                         iframeHeight !== DEFAULT_HEIGHT ? "eager" : "lazy"

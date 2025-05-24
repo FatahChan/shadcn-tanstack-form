@@ -16,6 +16,7 @@ import { Route as BlocksIndexImport } from './routes/blocks/index'
 import { Route as PreviewSignUpImport } from './routes/preview/sign-up'
 import { Route as PreviewShippingInfoImport } from './routes/preview/shipping-info'
 import { Route as PreviewLoginImport } from './routes/preview/login'
+import { Route as PreviewBlocksImport } from './routes/preview/blocks'
 import { Route as PreviewBasicInfoImport } from './routes/preview/basic-info'
 
 // Create/Update Routes
@@ -50,6 +51,12 @@ const PreviewLoginRoute = PreviewLoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const PreviewBlocksRoute = PreviewBlocksImport.update({
+  id: '/preview/blocks',
+  path: '/preview/blocks',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const PreviewBasicInfoRoute = PreviewBasicInfoImport.update({
   id: '/preview/basic-info',
   path: '/preview/basic-info',
@@ -72,6 +79,13 @@ declare module '@tanstack/react-router' {
       path: '/preview/basic-info'
       fullPath: '/preview/basic-info'
       preLoaderRoute: typeof PreviewBasicInfoImport
+      parentRoute: typeof rootRoute
+    }
+    '/preview/blocks': {
+      id: '/preview/blocks'
+      path: '/preview/blocks'
+      fullPath: '/preview/blocks'
+      preLoaderRoute: typeof PreviewBlocksImport
       parentRoute: typeof rootRoute
     }
     '/preview/login': {
@@ -110,6 +124,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/blocks': typeof PreviewBlocksRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
@@ -119,6 +134,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/blocks': typeof PreviewBlocksRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
@@ -129,6 +145,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/blocks': typeof PreviewBlocksRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
@@ -140,6 +157,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/preview/basic-info'
+    | '/preview/blocks'
     | '/preview/login'
     | '/preview/shipping-info'
     | '/preview/sign-up'
@@ -148,6 +166,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/preview/basic-info'
+    | '/preview/blocks'
     | '/preview/login'
     | '/preview/shipping-info'
     | '/preview/sign-up'
@@ -156,6 +175,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/preview/basic-info'
+    | '/preview/blocks'
     | '/preview/login'
     | '/preview/shipping-info'
     | '/preview/sign-up'
@@ -166,6 +186,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PreviewBasicInfoRoute: typeof PreviewBasicInfoRoute
+  PreviewBlocksRoute: typeof PreviewBlocksRoute
   PreviewLoginRoute: typeof PreviewLoginRoute
   PreviewShippingInfoRoute: typeof PreviewShippingInfoRoute
   PreviewSignUpRoute: typeof PreviewSignUpRoute
@@ -175,6 +196,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PreviewBasicInfoRoute: PreviewBasicInfoRoute,
+  PreviewBlocksRoute: PreviewBlocksRoute,
   PreviewLoginRoute: PreviewLoginRoute,
   PreviewShippingInfoRoute: PreviewShippingInfoRoute,
   PreviewSignUpRoute: PreviewSignUpRoute,
@@ -193,6 +215,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/preview/basic-info",
+        "/preview/blocks",
         "/preview/login",
         "/preview/shipping-info",
         "/preview/sign-up",
@@ -204,6 +227,9 @@ export const routeTree = rootRoute
     },
     "/preview/basic-info": {
       "filePath": "preview/basic-info.tsx"
+    },
+    "/preview/blocks": {
+      "filePath": "preview/blocks.tsx"
     },
     "/preview/login": {
       "filePath": "preview/login.tsx"

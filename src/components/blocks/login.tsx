@@ -1,4 +1,5 @@
 "use client";
+import { PasswordInput } from "@/components/form-fields/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
@@ -78,9 +79,8 @@ function LoginForm({
             <field.FormItem>
               <field.FormLabel>Password</field.FormLabel>
               <field.FormControl>
-                <Input
+                <PasswordInput
                   placeholder="password"
-                  type="text"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
