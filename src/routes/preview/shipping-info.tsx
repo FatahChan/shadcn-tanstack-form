@@ -3,7 +3,7 @@ import Form from "@/registry/new-york/blocks/shipping-info";
 import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/preview/shipping-info")({
   component: () => (
-    <div className="flex h-screen w-full items-center justify-center py-4">
+    <div className="flex w-full items-center justify-center py-4">
       <Form onSubmit={(data) => console.log(data)} />
     </div>
   ),

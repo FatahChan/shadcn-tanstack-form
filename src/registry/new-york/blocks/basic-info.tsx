@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
 import { Textarea } from "@/components/ui/textarea";
-import { useCallback } from "react";
+import { type FormHTMLAttributes, useCallback } from "react";
 import { z } from "zod";
 
 const FormSchema = z.object({
@@ -21,12 +21,22 @@ const FormSchema = z.object({
   }),
 });
 
+interface FormProps
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {}
+
+interface BasicInfoFormProps extends FormProps {
+  onSubmit: (data: z.infer<typeof FormSchema>) => void;
+  defaultValues?: z.infer<typeof FormSchema>;
+}
+
 function BasicInfoForm({
   onSubmit,
-}: { onSubmit: (data: z.infer<typeof FormSchema>) => void }) {
+  defaultValues,
+  ...props
+}: BasicInfoFormProps) {
   const form = useAppForm({
     validators: { onBlur: FormSchema },
-    defaultValues: {
+    defaultValues: defaultValues ?? {
       username: "",
       email: "",
       age: 0,
@@ -52,6 +62,7 @@ function BasicInfoForm({
         className="@container mx-auto w-full max-w-lg space-y-8 rounded-md border p-4 py-10"
         onSubmit={handleSubmit}
         noValidate
+        {...props}
       >
         <div className="grid @md:grid-cols-2 grid-cols-1 items-start gap-4">
           <form.AppField

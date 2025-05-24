@@ -27,9 +27,10 @@ const shippingSchema = z.object({
     message: "Please enter a valid phone number.",
   }),
 });
+interface FormProps
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {}
 
-interface ShippingFormProps
-  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+interface ShippingFormProps extends FormProps {
   onSubmit: (data: z.infer<typeof shippingSchema>) => void;
   defaultValues?: z.infer<typeof shippingSchema>;
 }

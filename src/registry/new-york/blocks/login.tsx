@@ -11,15 +11,16 @@ const loginFormSchema = z.object({
   password: z.string().min(1),
 });
 
-interface LoginFormProps
-  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+interface FormProps
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {}
+
+interface LoginFormProps extends FormProps {
   onSubmit: (data: z.infer<typeof loginFormSchema>) => void;
   defaultValues?: z.infer<typeof loginFormSchema>;
 }
 
 function LoginForm({
   onSubmit,
-
   defaultValues,
   className,
   ...props

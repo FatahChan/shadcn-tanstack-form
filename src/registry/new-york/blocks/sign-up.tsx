@@ -24,12 +24,13 @@ const signUpSchema = z
     path: ["confirmPassword"],
   });
 
-interface SignUpFormProps
-  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+interface FormProps
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {}
+
+interface SignUpFormProps extends FormProps {
   onSubmit: (data: z.infer<typeof signUpSchema>) => void;
   defaultValues?: z.infer<typeof signUpSchema>;
 }
-
 function SignUpForm({
   onSubmit,
   defaultValues,
