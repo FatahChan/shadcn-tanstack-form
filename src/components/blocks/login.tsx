@@ -1,5 +1,5 @@
 "use client";
-import { PasswordInput } from "@/components/form-fields/password-input";
+import PasswordInput from "@/components/form-fields/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
