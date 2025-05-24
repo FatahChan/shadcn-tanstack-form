@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "phone-input",
+  "type": "registry:component",
+  "title": "Phone Input",
+  "description": "A phone input component",
+  "dependencies": [
+    "react-phone-number-input"
+  ],
+  "files": [
+    {
+      "path": "src/components/form-fields/phone-input.tsx",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport { AsYouType, type CountryCode } from \"libphonenumber-js\";\nimport type { ComponentProps } from \"react\";\nimport { NumberFormatBase } from \"react-number-format\";\n\ninterface PhoneInputFieldProps\n  extends Omit<\n    ComponentProps<typeof Input>,\n    \"type\" | \"defaultValue\" | \"onChange\"\n  > {\n  value?: string;\n  defaultValue?: string | number | null | undefined;\n  onChange?: (value: string) => void;\n}\n\nfunction phoneFormatter(countryCode: CountryCode, value: string) {\n  const asYouType = new AsYouType(countryCode);\n  return asYouType.input(value);\n}\n\nexport default function PhoneInputField({\n  value,\n  onChange,\n  defaultValue,\n  ...props\n}: PhoneInputFieldProps) {\n  return (\n    <NumberFormatBase\n      value={value}\n      customInput={Input}\n      placeholder=\"Phone number\"\n      getInputRef={props.ref}\n      className={props.className}\n      defaultValue={defaultValue}\n      format={(value) => phoneFormatter(\"US\", value.slice(0, 15))}\n      onValueChange={(e) => {\n        onChange?.(e.value);\n      }}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "categories": [
+    "forms",
+    "user"
+  ]
+}

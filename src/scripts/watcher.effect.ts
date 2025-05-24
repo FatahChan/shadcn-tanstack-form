@@ -35,7 +35,7 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/preview/${componentSlug}")({
   component: () => (
     <div className="flex min-h-screen w-full items-center justify-center py-4">
-      <Component />
+      <Component className="w-60" />
     </div>
   ),
 });

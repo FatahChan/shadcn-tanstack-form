@@ -16,6 +16,7 @@ import { Route as ComponentsIndexImport } from './routes/components/index'
 import { Route as BlocksIndexImport } from './routes/blocks/index'
 import { Route as PreviewSignUpImport } from './routes/preview/sign-up'
 import { Route as PreviewShippingInfoImport } from './routes/preview/shipping-info'
+import { Route as PreviewPhoneInputImport } from './routes/preview/phone-input'
 import { Route as PreviewPasswordInputImport } from './routes/preview/password-input'
 import { Route as PreviewLoginImport } from './routes/preview/login'
 import { Route as PreviewBasicInfoImport } from './routes/preview/basic-info'
@@ -49,6 +50,12 @@ const PreviewSignUpRoute = PreviewSignUpImport.update({
 const PreviewShippingInfoRoute = PreviewShippingInfoImport.update({
   id: '/preview/shipping-info',
   path: '/preview/shipping-info',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PreviewPhoneInputRoute = PreviewPhoneInputImport.update({
+  id: '/preview/phone-input',
+  path: '/preview/phone-input',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewPasswordInputImport
       parentRoute: typeof rootRoute
     }
+    '/preview/phone-input': {
+      id: '/preview/phone-input'
+      path: '/preview/phone-input'
+      fullPath: '/preview/phone-input'
+      preLoaderRoute: typeof PreviewPhoneInputImport
+      parentRoute: typeof rootRoute
+    }
     '/preview/shipping-info': {
       id: '/preview/shipping-info'
       path: '/preview/shipping-info'
@@ -140,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/preview/basic-info': typeof PreviewBasicInfoRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/password-input': typeof PreviewPasswordInputRoute
+  '/preview/phone-input': typeof PreviewPhoneInputRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks': typeof BlocksIndexRoute
@@ -151,6 +166,7 @@ export interface FileRoutesByTo {
   '/preview/basic-info': typeof PreviewBasicInfoRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/password-input': typeof PreviewPasswordInputRoute
+  '/preview/phone-input': typeof PreviewPhoneInputRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks': typeof BlocksIndexRoute
@@ -163,6 +179,7 @@ export interface FileRoutesById {
   '/preview/basic-info': typeof PreviewBasicInfoRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/password-input': typeof PreviewPasswordInputRoute
+  '/preview/phone-input': typeof PreviewPhoneInputRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks/': typeof BlocksIndexRoute
@@ -176,6 +193,7 @@ export interface FileRouteTypes {
     | '/preview/basic-info'
     | '/preview/login'
     | '/preview/password-input'
+    | '/preview/phone-input'
     | '/preview/shipping-info'
     | '/preview/sign-up'
     | '/blocks'
@@ -186,6 +204,7 @@ export interface FileRouteTypes {
     | '/preview/basic-info'
     | '/preview/login'
     | '/preview/password-input'
+    | '/preview/phone-input'
     | '/preview/shipping-info'
     | '/preview/sign-up'
     | '/blocks'
@@ -196,6 +215,7 @@ export interface FileRouteTypes {
     | '/preview/basic-info'
     | '/preview/login'
     | '/preview/password-input'
+    | '/preview/phone-input'
     | '/preview/shipping-info'
     | '/preview/sign-up'
     | '/blocks/'
@@ -208,6 +228,7 @@ export interface RootRouteChildren {
   PreviewBasicInfoRoute: typeof PreviewBasicInfoRoute
   PreviewLoginRoute: typeof PreviewLoginRoute
   PreviewPasswordInputRoute: typeof PreviewPasswordInputRoute
+  PreviewPhoneInputRoute: typeof PreviewPhoneInputRoute
   PreviewShippingInfoRoute: typeof PreviewShippingInfoRoute
   PreviewSignUpRoute: typeof PreviewSignUpRoute
   BlocksIndexRoute: typeof BlocksIndexRoute
@@ -219,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   PreviewBasicInfoRoute: PreviewBasicInfoRoute,
   PreviewLoginRoute: PreviewLoginRoute,
   PreviewPasswordInputRoute: PreviewPasswordInputRoute,
+  PreviewPhoneInputRoute: PreviewPhoneInputRoute,
   PreviewShippingInfoRoute: PreviewShippingInfoRoute,
   PreviewSignUpRoute: PreviewSignUpRoute,
   BlocksIndexRoute: BlocksIndexRoute,
@@ -239,6 +261,7 @@ export const routeTree = rootRoute
         "/preview/basic-info",
         "/preview/login",
         "/preview/password-input",
+        "/preview/phone-input",
         "/preview/shipping-info",
         "/preview/sign-up",
         "/blocks/",
@@ -256,6 +279,9 @@ export const routeTree = rootRoute
     },
     "/preview/password-input": {
       "filePath": "preview/password-input.tsx"
+    },
+    "/preview/phone-input": {
+      "filePath": "preview/phone-input.tsx"
     },
     "/preview/shipping-info": {
       "filePath": "preview/shipping-info.tsx"

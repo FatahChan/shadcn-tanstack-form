@@ -3,7 +3,7 @@
 
 import { cn } from "@/lib/utils";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
-import { type JSX, useLayoutEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import type { BundledLanguage } from "shiki/bundle/web";
 import { codeToHast } from "shiki/bundle/web";
@@ -42,7 +42,7 @@ export function CodeBlock({
     preHighlighted || initial || null,
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // If we have pre-highlighted content, use that
     if (preHighlighted) {
       setContent(preHighlighted);
