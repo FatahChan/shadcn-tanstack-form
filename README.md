@@ -11,6 +11,17 @@ A modern, type-safe form management solution that combines the elegant UI compon
 - 🔄 Real-time form validation
 - 🎯 Best practices for form experiences
 
+## Available Components
+
+### Form Blocks
+- 🔐 Login Form - Complete authentication form with validation
+- 📦 Shipping Info Form - Address and contact information collection
+- and more...
+
+### UI Components
+- 🔑 Password Input - Secure password field with show/hide functionality
+- 📞 Phone Input - International phone number input with formatting
+- coming soon...
 ## Documentation
 
 https://shadcn-tanstack-form.netlify.app/
