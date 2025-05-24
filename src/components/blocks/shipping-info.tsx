@@ -2,10 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
+import { isValidPhoneNumber } from "libphonenumber-js";
 import { useCallback } from "react";
 import type { FormHTMLAttributes } from "react";
 import { z } from "zod";
-
+import PhoneInputField from "../form-fields/phone-input";
 const shippingSchema = z.object({
   fullName: z.string().min(2, {
     message: "Full name must be at least 2 characters long.",
@@ -23,7 +24,7 @@ const shippingSchema = z.object({
   postalCode: z.string().min(4, {
     message: "Please enter a valid postal code.",
   }),
-  phone: z.string().min(8, {
+  phone: z.string().refine((value) => isValidPhoneNumber(value, "US"), {
     message: "Please enter a valid phone number.",
   }),
 });
@@ -191,11 +192,9 @@ function ShippingForm({
               <field.FormItem>
                 <field.FormLabel>Phone Number</field.FormLabel>
                 <field.FormControl>
-                  <Input
-                    type="tel"
-                    placeholder="+1 (555) 000-0000"
+                  <PhoneInputField
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={field.handleChange}
                     onBlur={field.handleBlur}
                   />
                 </field.FormControl>

@@ -5,6 +5,7 @@
   "dependencies": ["zod"],
   "registryDependencies": [
     "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
+    "https://shadcn-tanstack-form.netlify.app/r/phone-input.json",
     "button",
     "input"
   ]

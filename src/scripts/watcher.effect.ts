@@ -133,8 +133,10 @@ function updateRegistry(
     );
     if (itemIndex !== -1) {
       items.splice(itemIndex, 1);
+      items.splice(itemIndex, 0, registryItem);
+    } else {
+      items.push(registryItem);
     }
-    items.push(registryItem);
     registryJson.items = items;
     return registryJson;
   });
