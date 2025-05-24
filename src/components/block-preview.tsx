@@ -37,7 +37,12 @@ export const BlockPreview: React.FC<
 > = ({ previewOnly, codeOnly, ...props }) => {
   const { name, files, title } = props;
   const content =
-    files?.find((file) => file.type === "registry:block")?.content || "";
+    files?.find((file) => {
+      if (!file.type) return false;
+      if (file.type === "registry:block") return true;
+      if (file.type === "registry:component") return true;
+      return false;
+    })?.content || "";
 
   const preview = `/preview/${name}`;
 

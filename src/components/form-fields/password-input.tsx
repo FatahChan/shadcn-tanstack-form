@@ -7,7 +7,7 @@ import { Eye, EyeOff } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";
 import { useState } from "react";
 
-export function PasswordInput({
+export default function PasswordInput({
   className,
   containerProps,
   ...props

@@ -76,9 +76,14 @@ export function Index() {
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-2xl">Usage</h3>
-            <Button asChild variant="outline">
-              <Link to="/blocks">View All Blocks</Link>
-            </Button>
+            <div className="flex gap-2">
+              <Button asChild variant="outline">
+                <Link to="/blocks">View All Blocks</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/components">View All Components</Link>
+              </Button>
+            </div>
           </div>
           <BlockPreview {...basicInfoBlock} />
         </div>
