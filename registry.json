@@ -12,7 +12,7 @@
           "name": "tanstack-form",
           "type": "registry:ui",
           "title": "TanStack Form",
-          "path": "src/components/tanstack-form/tanstack-form.tsx",
+          "path": "src/components/ui/tanstack-form.tsx",
           "description": "A form component built with TanStack Form.",
           "dependencies": [
             "@tanstack/react-form"
