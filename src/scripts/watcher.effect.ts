@@ -34,8 +34,8 @@ import Component from "@/components/form-fields/${componentSlug}";
 import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/preview/${componentSlug}")({
   component: () => (
-    <div className="flex min-h-screen w-full items-center justify-center py-4">
-      <Component className="w-60" />
+    <div className="flex min-h-screen items-center justify-center py-4 max-w-3xl w-11/12 mx-auto">
+      <Component />
     </div>
   ),
 });

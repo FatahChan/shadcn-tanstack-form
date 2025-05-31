@@ -1,0 +1,10 @@
+{
+  "categories": ["forms", "blog"],
+  "title": "Blog Editor",
+  "description": "A blog editor component built with TanStack Form.",
+  "dependencies": ["zod"],
+  "registryDependencies": [
+    "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
+    "https://shadcn-tanstack-form.netlify.app/r/rich-text.json"
+  ]
+}

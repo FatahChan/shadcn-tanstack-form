@@ -1,0 +1,21 @@
+{
+  "categories": ["forms", "rich-text"],
+  "title": "Rich Text",
+  "description": "A rich text component",
+  "dependencies": [
+    "@udecode/plate",
+    "@udecode/plate-basic-elements",
+    "@udecode/plate-basic-marks",
+    "@udecode/plate-list"
+  ],
+  "registryDependencies": [
+    "https://platejs.org/r/plate-ui/",
+    "https://platejs.org/r/mark-toolbar-button/",
+    "https://platejs.org/r/fixed-toolbar/",
+    "https://platejs.org/r/heading-element/",
+    "https://platejs.org/r/paragraph-element/",
+    "https://platejs.org/r/blockquote-element/",
+    "https://platejs.org/r/list-element/",
+    "https://platejs.org/r/list-toolbar-button/"
+  ]
+}

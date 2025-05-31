@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blog-editor",
+  "type": "registry:block",
+  "title": "Blog Editor",
+  "description": "A blog editor component built with TanStack Form.",
+  "dependencies": [
+    "zod"
+  ],
+  "registryDependencies": [
+    "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
+    "https://shadcn-tanstack-form.netlify.app/r/rich-text.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/blocks/blog-editor.tsx",
+      "content": "\"use client\";\nimport RichTextEditor from \"@/components/form-fields/rich-text\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { useAppForm } from \"@/components/ui/tanstack-form\";\nimport type { FormHTMLAttributes } from \"react\";\nimport { useCallback } from \"react\";\nimport { z } from \"zod\";\n\nconst blogSchema = z.object({\n  title: z.string().min(1, {\n    message: \"Please enter a valid title.\",\n  }),\n  content: z.string(),\n});\n\ninterface FormProps\n  extends Omit<FormHTMLAttributes<HTMLFormElement>, \"onSubmit\"> {}\n\ninterface BlogEditorProps extends FormProps {\n  onSubmit: (data: z.infer<typeof blogSchema>) => void;\n  defaultValues?: z.infer<typeof blogSchema>;\n}\nfunction BlogEditor({\n  onSubmit,\n  defaultValues,\n  className,\n  ...props\n}: BlogEditorProps) {\n  const form = useAppForm({\n    defaultValues: {\n      title: defaultValues?.title ?? \"\",\n      content: defaultValues?.content ?? \"\",\n    },\n    validators: { onBlur: blogSchema },\n    onSubmit: ({ value }) => {\n      onSubmit(value);\n    },\n  });\n\n  const handleSubmit = useCallback(\n    (e: React.FormEvent) => {\n      e.preventDefault();\n      e.stopPropagation();\n      form.handleSubmit();\n    },\n    [form],\n  );\n\n  return (\n    <form.AppForm>\n      <form\n        className=\"mx-auto w-full max-w-lg space-y-6 rounded-lg border p-6\"\n        onSubmit={handleSubmit}\n        noValidate\n        {...props}\n      >\n        <form.AppField\n          name=\"title\"\n          children={(field) => (\n            <field.FormItem>\n              <field.FormLabel>Title</field.FormLabel>\n              <field.FormControl>\n                <Input\n                  placeholder=\"Enter blog title...\"\n                  value={field.state.value}\n                  onChange={(e) => field.handleChange(e.target.value)}\n                  onBlur={field.handleBlur}\n                />\n              </field.FormControl>\n              <field.FormMessage />\n            </field.FormItem>\n          )}\n        />\n\n        <form.AppField\n          name=\"content\"\n          children={(field) => (\n            <field.FormItem>\n              <field.FormLabel>Content</field.FormLabel>\n              <field.FormControl>\n                <RichTextEditor\n                  value={field.state.value}\n                  onChange={(value) => field.handleChange(value)}\n                />\n              </field.FormControl>\n              <field.FormMessage />\n            </field.FormItem>\n          )}\n        />\n\n        <Button type=\"submit\" className=\"w-full\">\n          Submit\n        </Button>\n      </form>\n    </form.AppForm>\n  );\n}\n\nBlogEditor.displayName = \"BlogEditor\";\n\nexport default BlogEditor;\n",
+      "type": "registry:block"
+    }
+  ],
+  "categories": [
+    "forms",
+    "blog"
+  ]
+}
