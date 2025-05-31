@@ -11,6 +11,13 @@ import { List, ListOrdered } from "lucide-react";
 
 import { ToolbarButton } from "./toolbar";
 
+/**
+ * Renders a toolbar button for toggling bulleted or numbered list formatting in a rich text editor.
+ *
+ * The button displays an appropriate icon and tooltip based on the specified list type.
+ *
+ * @param nodeType - Optional. The list type to control; defaults to bulleted list.
+ */
 export function ListToolbarButton({
   nodeType = BulletedListPlugin.key,
   ...props

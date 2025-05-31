@@ -9,6 +9,14 @@ import {
 
 import { ToolbarButton } from "./toolbar";
 
+/**
+ * Renders a toolbar button for applying or clearing a text mark in a rich text editor.
+ *
+ * @param nodeType - The type of mark to apply (e.g., "bold", "italic").
+ * @param clear - Optional mark or marks to clear when the button is activated.
+ *
+ * @returns A {@link ToolbarButton} component configured for mark formatting.
+ */
 export function MarkToolbarButton({
   clear,
   nodeType,

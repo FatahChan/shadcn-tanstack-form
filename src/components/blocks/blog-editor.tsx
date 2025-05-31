@@ -22,6 +22,14 @@ interface SignUpFormProps extends FormProps {
   onSubmit: (data: z.infer<typeof blogSchema>) => void;
   defaultValues?: z.infer<typeof blogSchema>;
 }
+/**
+ * Renders a blog post editor form with fields for title and content, handling validation and submission.
+ *
+ * @param onSubmit - Callback invoked with validated form data when the form is submitted.
+ * @param defaultValues - Optional initial values for the form fields.
+ *
+ * @returns A React component rendering the blog editor form.
+ */
 function BlogEditor({
   onSubmit,
   defaultValues,

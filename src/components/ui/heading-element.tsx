@@ -20,6 +20,14 @@ const headingVariants = cva("relative mb-1", {
   },
 });
 
+/**
+ * Renders a styled heading element within a rich text editor, supporting variants from h1 to h6.
+ *
+ * Applies variant-specific styles to the heading and renders its children inside a {@link PlateElement}.
+ *
+ * @param variant - The heading level to render (e.g., "h1", "h2"). Defaults to "h1".
+ * @returns A {@link PlateElement} rendered as the specified heading tag with appropriate styles.
+ */
 export function HeadingElement({
   variant = "h1",
   ...props

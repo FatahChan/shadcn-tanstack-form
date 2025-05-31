@@ -16,6 +16,11 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
+/**
+ * Renders a styled toolbar container using Radix UI primitives.
+ *
+ * @param className - Additional class names to customize styling.
+ */
 export function Toolbar({
   className,
   ...props
@@ -28,6 +33,11 @@ export function Toolbar({
   );
 }
 
+/**
+ * Renders a group of toggleable toolbar items with horizontal flex layout.
+ *
+ * @param className - Additional CSS classes to apply to the group container.
+ */
 export function ToolbarToggleGroup({
   className,
   ...props
@@ -40,6 +50,11 @@ export function ToolbarToggleGroup({
   );
 }
 
+/**
+ * Renders a styled toolbar link with underline and medium font weight.
+ *
+ * Extends the Radix ToolbarPrimitive.Link component with additional styling for use within toolbars.
+ */
 export function ToolbarLink({
   className,
   ...props
@@ -52,6 +67,11 @@ export function ToolbarLink({
   );
 }
 
+/**
+ * Renders a styled separator for visually dividing groups of toolbar items.
+ *
+ * Applies horizontal and vertical margins, a fixed width, and border color for consistent appearance within the toolbar.
+ */
 export function ToolbarSeparator({
   className,
   ...props
@@ -178,6 +198,11 @@ export const ToolbarButton = withTooltip(function ToolbarButton({
   );
 });
 
+/**
+ * Renders a split button for toolbars, grouping primary and secondary actions with appropriate styling.
+ *
+ * @param className - Additional class names to apply to the split button.
+ */
 export function ToolbarSplitButton({
   className,
   ...props
@@ -196,6 +221,13 @@ type ToolbarSplitButtonPrimaryProps = Omit<
 > &
   VariantProps<typeof toolbarButtonVariants>;
 
+/**
+ * Renders the primary section of a split toolbar button with appropriate styling.
+ *
+ * Applies size and variant styles, removes right border radius, and visually indicates the pressed state.
+ *
+ * @param children - The content to display inside the primary split button.
+ */
 export function ToolbarSplitButtonPrimary({
   children,
   className,
@@ -221,6 +253,11 @@ export function ToolbarSplitButtonPrimary({
   );
 }
 
+/**
+ * Renders the secondary part of a split toolbar button as a dropdown arrow button.
+ *
+ * Stops event propagation on click to prevent parent handlers from triggering.
+ */
 export function ToolbarSplitButtonSecondary({
   className,
   size,
@@ -246,6 +283,11 @@ export function ToolbarSplitButtonSecondary({
   );
 }
 
+/**
+ * A styled toggle item for use within a toolbar toggle group.
+ *
+ * Applies toolbar button variants for consistent size and appearance.
+ */
 export function ToolbarToggleItem({
   className,
   size = "sm",
@@ -261,6 +303,11 @@ export function ToolbarToggleItem({
   );
 }
 
+/**
+ * Groups toolbar items together and conditionally displays a vertical separator.
+ *
+ * The group is only visible if it contains at least one button. The separator is hidden for the last group.
+ */
 export function ToolbarGroup({
   children,
   className,
@@ -295,6 +342,16 @@ type TooltipProps<T extends React.ElementType> = {
   tooltipTriggerProps?: React.ComponentPropsWithoutRef<typeof TooltipTrigger>;
 } & React.ComponentProps<T>;
 
+/**
+ * Higher-order component that wraps a given component with a tooltip if a `tooltip` prop is provided.
+ *
+ * The tooltip is rendered using Radix UI Tooltip primitives and is only mounted on the client to prevent server/client rendering mismatches.
+ *
+ * @param Component - The React component to be wrapped with tooltip functionality.
+ * @returns A new component that displays a tooltip when the `tooltip` prop is set.
+ *
+ * @remark Tooltip-related props (`tooltip`, `tooltipContentProps`, `tooltipProps`, `tooltipTriggerProps`) are passed through to the underlying tooltip primitives.
+ */
 function withTooltip<T extends React.ElementType>(Component: T) {
   return function ExtendComponent({
     tooltip,
@@ -327,6 +384,13 @@ function withTooltip<T extends React.ElementType>(Component: T) {
   };
 }
 
+/**
+ * Renders styled tooltip content inside a portal.
+ *
+ * @param children - The content to display within the tooltip.
+ * @param className - Additional CSS classes for custom styling.
+ * @param sideOffset - The offset distance from the tooltip trigger, defaults to 4.
+ */
 function TooltipContent({
   children,
   className,
@@ -353,6 +417,12 @@ function TooltipContent({
   );
 }
 
+/**
+ * Renders a grouped section within a dropdown menu, optionally with a label, and conditionally displays the group and separator based on the presence of menu items.
+ *
+ * @param label - Optional label displayed at the top of the group.
+ * @remark The group and its separator are only visible if the group contains menu items, menu item radios, or options.
+ */
 export function ToolbarMenuGroup({
   children,
   className,

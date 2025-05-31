@@ -18,6 +18,12 @@ const headingVariants = cva("relative mb-1", {
   },
 });
 
+/**
+ * Renders a styled heading element within a Slate editor, using the specified heading level and variant-based styles.
+ *
+ * @param variant - The heading level to render (e.g., "h1" through "h6"). Defaults to "h1" if not specified.
+ * @returns A {@link SlateElement} rendered as the specified heading tag with appropriate styles applied.
+ */
 export function HeadingElementStatic({
   variant = "h1",
   ...props

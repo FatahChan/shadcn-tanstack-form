@@ -21,6 +21,17 @@ import { ParagraphElement } from "@/components/ui/paragraph-element";
 import { ToolbarButton } from "@/components/ui/toolbar";
 import { cn } from "@/lib/utils";
 
+/**
+ * Renders a rich text editor with formatting toolbar and customizable content.
+ *
+ * Provides editing capabilities for headings, blockquotes, lists, and text formatting (bold, italic, underline) using the Plate framework. The editor's content is managed as a JSON string, with changes propagated via the `onChange` callback.
+ *
+ * @param value - The serialized editor content as a JSON string.
+ * @param onChange - Callback invoked with the updated content as a JSON string when the editor value changes.
+ * @param onBlur - Optional callback invoked when the editor loses focus.
+ * @param placeholder - Optional placeholder text displayed when the editor is empty.
+ * @param className - Optional additional CSS class names for the editor area.
+ */
 export default function RichTextEditor({
   value,
   onChange,

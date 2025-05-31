@@ -41,6 +41,13 @@ export const editorVariants = cva(
   },
 );
 
+/**
+ * Renders a static rich text editor with configurable visual variants and state-based styles.
+ *
+ * Combines variant-based styling with additional class names and passes all other props to the underlying {@link PlateStatic} component.
+ *
+ * @param variant - Visual style preset for the editor container.
+ */
 export function EditorStatic({
   className,
   variant,
