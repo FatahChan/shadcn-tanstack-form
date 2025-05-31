@@ -16,9 +16,11 @@ import { Route as ComponentsIndexImport } from './routes/components/index'
 import { Route as BlocksIndexImport } from './routes/blocks/index'
 import { Route as PreviewSignUpImport } from './routes/preview/sign-up'
 import { Route as PreviewShippingInfoImport } from './routes/preview/shipping-info'
+import { Route as PreviewRichTextImport } from './routes/preview/rich-text'
 import { Route as PreviewPhoneInputImport } from './routes/preview/phone-input'
 import { Route as PreviewPasswordInputImport } from './routes/preview/password-input'
 import { Route as PreviewLoginImport } from './routes/preview/login'
+import { Route as PreviewBlogEditorImport } from './routes/preview/blog-editor'
 import { Route as PreviewBasicInfoImport } from './routes/preview/basic-info'
 
 // Create/Update Routes
@@ -53,6 +55,12 @@ const PreviewShippingInfoRoute = PreviewShippingInfoImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const PreviewRichTextRoute = PreviewRichTextImport.update({
+  id: '/preview/rich-text',
+  path: '/preview/rich-text',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const PreviewPhoneInputRoute = PreviewPhoneInputImport.update({
   id: '/preview/phone-input',
   path: '/preview/phone-input',
@@ -68,6 +76,12 @@ const PreviewPasswordInputRoute = PreviewPasswordInputImport.update({
 const PreviewLoginRoute = PreviewLoginImport.update({
   id: '/preview/login',
   path: '/preview/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PreviewBlogEditorRoute = PreviewBlogEditorImport.update({
+  id: '/preview/blog-editor',
+  path: '/preview/blog-editor',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -95,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewBasicInfoImport
       parentRoute: typeof rootRoute
     }
+    '/preview/blog-editor': {
+      id: '/preview/blog-editor'
+      path: '/preview/blog-editor'
+      fullPath: '/preview/blog-editor'
+      preLoaderRoute: typeof PreviewBlogEditorImport
+      parentRoute: typeof rootRoute
+    }
     '/preview/login': {
       id: '/preview/login'
       path: '/preview/login'
@@ -114,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/preview/phone-input'
       fullPath: '/preview/phone-input'
       preLoaderRoute: typeof PreviewPhoneInputImport
+      parentRoute: typeof rootRoute
+    }
+    '/preview/rich-text': {
+      id: '/preview/rich-text'
+      path: '/preview/rich-text'
+      fullPath: '/preview/rich-text'
+      preLoaderRoute: typeof PreviewRichTextImport
       parentRoute: typeof rootRoute
     }
     '/preview/shipping-info': {
@@ -152,9 +180,11 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/blog-editor': typeof PreviewBlogEditorRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/password-input': typeof PreviewPasswordInputRoute
   '/preview/phone-input': typeof PreviewPhoneInputRoute
+  '/preview/rich-text': typeof PreviewRichTextRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks': typeof BlocksIndexRoute
@@ -164,9 +194,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/blog-editor': typeof PreviewBlogEditorRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/password-input': typeof PreviewPasswordInputRoute
   '/preview/phone-input': typeof PreviewPhoneInputRoute
+  '/preview/rich-text': typeof PreviewRichTextRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks': typeof BlocksIndexRoute
@@ -177,9 +209,11 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
+  '/preview/blog-editor': typeof PreviewBlogEditorRoute
   '/preview/login': typeof PreviewLoginRoute
   '/preview/password-input': typeof PreviewPasswordInputRoute
   '/preview/phone-input': typeof PreviewPhoneInputRoute
+  '/preview/rich-text': typeof PreviewRichTextRoute
   '/preview/shipping-info': typeof PreviewShippingInfoRoute
   '/preview/sign-up': typeof PreviewSignUpRoute
   '/blocks/': typeof BlocksIndexRoute
@@ -191,9 +225,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/preview/basic-info'
+    | '/preview/blog-editor'
     | '/preview/login'
     | '/preview/password-input'
     | '/preview/phone-input'
+    | '/preview/rich-text'
     | '/preview/shipping-info'
     | '/preview/sign-up'
     | '/blocks'
@@ -202,9 +238,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/preview/basic-info'
+    | '/preview/blog-editor'
     | '/preview/login'
     | '/preview/password-input'
     | '/preview/phone-input'
+    | '/preview/rich-text'
     | '/preview/shipping-info'
     | '/preview/sign-up'
     | '/blocks'
@@ -213,9 +251,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/preview/basic-info'
+    | '/preview/blog-editor'
     | '/preview/login'
     | '/preview/password-input'
     | '/preview/phone-input'
+    | '/preview/rich-text'
     | '/preview/shipping-info'
     | '/preview/sign-up'
     | '/blocks/'
@@ -226,9 +266,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PreviewBasicInfoRoute: typeof PreviewBasicInfoRoute
+  PreviewBlogEditorRoute: typeof PreviewBlogEditorRoute
   PreviewLoginRoute: typeof PreviewLoginRoute
   PreviewPasswordInputRoute: typeof PreviewPasswordInputRoute
   PreviewPhoneInputRoute: typeof PreviewPhoneInputRoute
+  PreviewRichTextRoute: typeof PreviewRichTextRoute
   PreviewShippingInfoRoute: typeof PreviewShippingInfoRoute
   PreviewSignUpRoute: typeof PreviewSignUpRoute
   BlocksIndexRoute: typeof BlocksIndexRoute
@@ -238,9 +280,11 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PreviewBasicInfoRoute: PreviewBasicInfoRoute,
+  PreviewBlogEditorRoute: PreviewBlogEditorRoute,
   PreviewLoginRoute: PreviewLoginRoute,
   PreviewPasswordInputRoute: PreviewPasswordInputRoute,
   PreviewPhoneInputRoute: PreviewPhoneInputRoute,
+  PreviewRichTextRoute: PreviewRichTextRoute,
   PreviewShippingInfoRoute: PreviewShippingInfoRoute,
   PreviewSignUpRoute: PreviewSignUpRoute,
   BlocksIndexRoute: BlocksIndexRoute,
@@ -259,9 +303,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/preview/basic-info",
+        "/preview/blog-editor",
         "/preview/login",
         "/preview/password-input",
         "/preview/phone-input",
+        "/preview/rich-text",
         "/preview/shipping-info",
         "/preview/sign-up",
         "/blocks/",
@@ -274,6 +320,9 @@ export const routeTree = rootRoute
     "/preview/basic-info": {
       "filePath": "preview/basic-info.tsx"
     },
+    "/preview/blog-editor": {
+      "filePath": "preview/blog-editor.tsx"
+    },
     "/preview/login": {
       "filePath": "preview/login.tsx"
     },
@@ -282,6 +331,9 @@ export const routeTree = rootRoute
     },
     "/preview/phone-input": {
       "filePath": "preview/phone-input.tsx"
+    },
+    "/preview/rich-text": {
+      "filePath": "preview/rich-text.tsx"
     },
     "/preview/shipping-info": {
       "filePath": "preview/shipping-info.tsx"

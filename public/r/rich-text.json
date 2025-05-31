@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rich-text",
+  "type": "registry:component",
+  "title": "Rich Text",
+  "description": "A rich text component",
+  "dependencies": [
+    "@udecode/plate",
+    "@udecode/plate-basic-elements",
+    "@udecode/plate-basic-marks",
+    "@udecode/plate-list"
+  ],
+  "registryDependencies": [
+    "https://platejs.org/r/plate-ui/",
+    "https://platejs.org/r/mark-toolbar-button/",
+    "https://platejs.org/r/fixed-toolbar/",
+    "https://platejs.org/r/heading-element/",
+    "https://platejs.org/r/paragraph-element/",
+    "https://platejs.org/r/blockquote-element/",
+    "https://platejs.org/r/list-element/",
+    "https://platejs.org/r/list-toolbar-button/"
+  ],
+  "files": [
+    {
+      "path": "src/components/form-fields/rich-text.tsx",
+      "content": "import { BasicElementsPlugin } from \"@udecode/plate-basic-elements/react\";\nimport { BasicMarksPlugin } from \"@udecode/plate-basic-marks/react\";\nimport { ListPlugin } from \"@udecode/plate-list/react\";\nimport {\n  Plate,\n  PlateElement,\n  type PlateElementProps,\n  PlateLeaf,\n  type PlateLeafProps,\n  usePlateEditor,\n} from \"@udecode/plate/react\";\n\nimport { BlockquoteElement } from \"@/components/ui/blockquote-element\";\nimport { Editor, EditorContainer } from \"@/components/ui/editor\";\nimport { FixedToolbar } from \"@/components/ui/fixed-toolbar\";\nimport { HeadingElement } from \"@/components/ui/heading-element\";\nimport { ListElement } from \"@/components/ui/list-element\";\nimport { ListToolbarButton } from \"@/components/ui/list-toolbar-button\";\nimport { MarkToolbarButton } from \"@/components/ui/mark-toolbar-button\";\nimport { ParagraphElement } from \"@/components/ui/paragraph-element\";\nimport { ToolbarButton } from \"@/components/ui/toolbar\";\nimport { cn } from \"@/lib/utils\";\n\nexport default function RichTextEditor({\n  value,\n  onChange,\n  onBlur,\n  placeholder,\n  className,\n}: {\n  value: string;\n  onChange: (value: string) => void;\n  onBlur?: () => void;\n  placeholder?: string;\n  className?: string;\n}) {\n  const editor = usePlateEditor({\n    plugins: [BasicElementsPlugin, BasicMarksPlugin, ListPlugin],\n    components: {\n      blockquote: BlockquoteElement,\n      p: ParagraphElement,\n      h1: (props: PlateElementProps) => (\n        <HeadingElement {...props} variant=\"h1\" />\n      ),\n      h2: (props: PlateElementProps) => (\n        <HeadingElement {...props} variant=\"h2\" />\n      ),\n      h3: (props: PlateElementProps) => (\n        <HeadingElement {...props} variant=\"h3\" />\n      ),\n      bold: (props: PlateLeafProps) => <PlateLeaf {...props} as=\"strong\" />,\n      italic: (props: PlateLeafProps) => <PlateLeaf {...props} as=\"em\" />,\n      underline: (props: PlateLeafProps) => <PlateLeaf {...props} as=\"u\" />,\n      ul: (props: PlateElementProps) => <ListElement {...props} variant=\"ul\" />,\n      ol: (props: PlateElementProps) => <ListElement {...props} variant=\"ol\" />,\n      li: (props: PlateElementProps) => <PlateElement {...props} as=\"li\" />,\n      value: value ? JSON.parse(value) : undefined,\n    },\n  });\n\n  return (\n    <Plate\n      editor={editor}\n      onChange={({ value }) => onChange?.(JSON.stringify(value))}\n    >\n      <div className=\"grid w-full\">\n        <FixedToolbar className=\"flex flex-wrap justify-start gap-1 border\">\n          <ToolbarButton onClick={() => editor.tf.toggleBlock(\"h1\")}>\n            H1\n          </ToolbarButton>\n          <ToolbarButton onClick={() => editor.tf.toggleBlock(\"h2\")}>\n            H2\n          </ToolbarButton>\n          <ToolbarButton onClick={() => editor.tf.toggleBlock(\"h3\")}>\n            H3\n          </ToolbarButton>\n          <ToolbarButton onClick={() => editor.tf.toggleBlock(\"blockquote\")}>\n            Quote\n          </ToolbarButton>\n          <MarkToolbarButton nodeType=\"bold\" tooltip=\"Bold (⌘+B)\">\n            B\n          </MarkToolbarButton>\n          <MarkToolbarButton nodeType=\"italic\" tooltip=\"Italic (⌘+I)\">\n            I\n          </MarkToolbarButton>\n          <MarkToolbarButton nodeType=\"underline\" tooltip=\"Underline (⌘+U)\">\n            U\n          </MarkToolbarButton>\n          <ListToolbarButton nodeType=\"ul\" />\n          <ListToolbarButton nodeType=\"ol\" />\n        </FixedToolbar>\n        <EditorContainer>\n          <Editor\n            placeholder={placeholder}\n            variant=\"none\"\n            className={cn(\"min-h-[200px] rounded-t-none border p-2\", className)}\n            onBlur={() => onBlur?.()}\n          />\n        </EditorContainer>\n      </div>\n    </Plate>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "categories": [
+    "forms",
+    "rich-text"
+  ]
+}
