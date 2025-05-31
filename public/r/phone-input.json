@@ -5,7 +5,11 @@
   "title": "Phone Input",
   "description": "A phone input component",
   "dependencies": [
-    "react-phone-number-input"
+    "react-number-format",
+    "libphonenumber-js"
+  ],
+  "registryDependencies": [
+    "input"
   ],
   "files": [
     {

@@ -154,7 +154,7 @@
         {
           "type": "registry:component",
           "path": "src/components/form-fields/phone-input.tsx",
-          "content": "import { useRef, useState, type ComponentProps } from \"react\";\nimport {\n  NumberFormatBase,\n  NumericFormat,\n  usePatternFormat,\n} from \"react-number-format\";\nimport { Input } from \"../ui/input\";\nimport { AsYouType } from \"libphonenumber-js\";\n\nconst phoneFormatter = (value: string) => {\n  const ref = useRef(new AsYouType());\n  return ref.current.input(value);\n};\ninterface PhoneInputFieldProps\n  extends Omit<ComponentProps<typeof Input>, \"type\" | \"defaultValue\"> {\n  value: string;\n  defaultValue?: string | number | null | undefined;\n}\nexport default function PhoneInputField({\n  value,\n  onChange,\n  defaultValue,\n  ...props\n}: PhoneInputFieldProps) {\n  const [_value, _setValue] = useState(\"\");\n  const ref = useRef(new AsYouType());\n  return (\n    <NumberFormatBase\n      value={_value}\n      customInput={Input}\n      getInputRef={props.ref}\n      className={props.className}\n      defaultValue={defaultValue}\n      onChange={(event) => {\n        _setValue(event.target.value);\n      }}\n      format={(value) => value}\n      {...props}\n    />\n  );\n}\n"
+          "content": "import { Input } from \"@/components/ui/input\";\nimport { AsYouType, type CountryCode } from \"libphonenumber-js\";\nimport type { ComponentProps } from \"react\";\nimport { NumberFormatBase } from \"react-number-format\";\n\ninterface PhoneInputFieldProps\n  extends Omit<\n    ComponentProps<typeof Input>,\n    \"type\" | \"defaultValue\" | \"onChange\"\n  > {\n  value?: string;\n  defaultValue?: string | number | null | undefined;\n  onChange?: (value: string) => void;\n}\n\nfunction phoneFormatter(countryCode: CountryCode, value: string) {\n  const asYouType = new AsYouType(countryCode);\n  return asYouType.input(value);\n}\n\nexport default function PhoneInputField({\n  value,\n  onChange,\n  defaultValue,\n  ...props\n}: PhoneInputFieldProps) {\n  return (\n    <NumberFormatBase\n      type=\"tel\"\n      value={value}\n      customInput={Input}\n      placeholder=\"Phone number\"\n      getInputRef={props.ref}\n      className={props.className}\n      defaultValue={defaultValue}\n      format={(value) => phoneFormatter(\"US\", value.slice(0, 15))}\n      onValueChange={(e) => {\n        onChange?.(e.value);\n      }}\n      {...props}\n    />\n  );\n}\n"
         }
       ],
       "categories": [
@@ -162,7 +162,11 @@
         "user"
       ],
       "dependencies": [
-        "react-phone-number-input"
+        "react-number-format",
+        "libphonenumber-js"
+      ],
+      "registryDependencies": [
+        "input"
       ]
     }
   ]
