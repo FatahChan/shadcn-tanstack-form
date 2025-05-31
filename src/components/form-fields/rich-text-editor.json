@@ -1,0 +1,6 @@
+{
+  "categories": ["forms", "editor"],
+  "title": "Rich Text Editor",
+  "description": "A Rich Text Editor component",
+  "registryDependencies": ["textarea"]
+}

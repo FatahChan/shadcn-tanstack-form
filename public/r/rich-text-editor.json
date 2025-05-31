@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rich-text-editor",
+  "type": "registry:component",
+  "title": "Rich Text Editor",
+  "description": "A Rich Text Editor component",
+  "registryDependencies": [
+    "textarea"
+  ],
+  "files": [
+    {
+      "path": "src/components/form-fields/rich-text-editor.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\nimport Quill, { type QuillOptions } from \"quill\";\nimport {\n  type HtmlHTMLAttributes,\n  createContext,\n  useContext,\n  useEffect,\n  useRef,\n} from \"react\";\nimport \"quill/dist/quill.snow.css\";\ninterface RichTextEditorProps\n  extends Omit<HtmlHTMLAttributes<HTMLDivElement>, \"value\" | \"onChange\"> {\n  quillOptions?: QuillOptions;\n  value?: string;\n  onChange?: (value: string) => void;\n}\n\nconst EditorContext = createContext<{\n  toolbarContainerRef: React.RefObject<HTMLDivElement | null>;\n  editorContainerRef: React.RefObject<HTMLDivElement | null>;\n  quillRef: React.RefObject<Quill | null>;\n} | null>(null);\n\nconst RichTextEditorRoot = ({\n  children,\n  quillOptions,\n  value,\n  onChange,\n  ...props\n}: RichTextEditorProps) => {\n  const toolbarContainerRef = useRef<HTMLDivElement>(null);\n  const editorContainerRef = useRef<HTMLDivElement>(null);\n  const quillRef = useRef<Quill | null>(null);\n  useEffect(() => {\n    const editorContainer = editorContainerRef.current;\n    const toolbarContainer = toolbarContainerRef.current;\n    if (!editorContainer || !toolbarContainer) {\n      throw new Error(\"editorContainer or toolbarContainer is not found\");\n    }\n    const quill = new Quill(editorContainer, {\n      ...quillOptions,\n      modules: {\n        ...quillOptions?.modules,\n        toolbar: {\n          container: toolbarContainer,\n        },\n      },\n    });\n\n    quillRef.current = quill;\n    return () => {\n      quillRef.current = null;\n      editorContainer.innerHTML = \"\";\n      toolbarContainer.innerHTML = \"\";\n    };\n  }, [quillOptions]);\n\n  return (\n    <EditorContext.Provider\n      value={{ toolbarContainerRef, editorContainerRef, quillRef }}\n    >\n      <div className=\"flex flex-col\" {...props}>\n        {children}\n      </div>\n    </EditorContext.Provider>\n  );\n};\n\nconst useEditorContext = () => {\n  const context = useContext(EditorContext);\n  if (!context) {\n    throw new Error(\"useEditorContext must be used within an EditorProvider\");\n  }\n  return context;\n};\n\nconst Toolbar = () => {\n  const { toolbarContainerRef } = useEditorContext();\n  return (\n    <div ref={toolbarContainerRef}>\n      <select className=\"ql-size\">\n        <option value=\"small\">Small</option>\n        <option selected>Medium</option>\n        <option value=\"large\">Large</option>\n        <option value=\"huge\">Huge</option>\n      </select>\n      <button className=\"ql-bold\" type=\"button\">\n        B old\n      </button>\n      <button className=\"ql-script\" value=\"sub\" type=\"button\">\n        Subscript\n      </button>\n      <button className=\"ql-script\" value=\"super\" type=\"button\">\n        Superscript\n      </button>\n    </div>\n  );\n};\n// Editor is an uncontrolled React component\nconst Editor = ({ quillOptions, className, ...props }: RichTextEditorProps) => {\n  const { editorContainerRef } = useEditorContext();\n  return (\n    <div\n      ref={editorContainerRef}\n      className={cn(\"min-w-lg rounded-md border-2\", className)}\n      {...props}\n    />\n  );\n};\n\nfunction RichTextEditor() {\n  return (\n    <RichTextEditorRoot>\n      <Toolbar />\n      <Editor />\n    </RichTextEditorRoot>\n  );\n}\n\nexport default RichTextEditor;\n",
+      "type": "registry:component"
+    }
+  ],
+  "categories": [
+    "forms",
+    "editor"
+  ]
+}
