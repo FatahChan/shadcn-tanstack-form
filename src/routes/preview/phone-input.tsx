@@ -3,8 +3,8 @@ import Component from "@/components/form-fields/phone-input";
 import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/preview/phone-input")({
   component: () => (
-    <div className="flex min-h-screen w-full items-center justify-center py-4">
-      <Component className="w-60" />
+    <div className="mx-auto flex min-h-screen w-11/12 max-w-3xl items-center justify-center py-4">
+      <Component />
     </div>
   ),
 });
