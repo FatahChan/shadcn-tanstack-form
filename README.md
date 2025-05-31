@@ -29,7 +29,7 @@ https://shadcn-tanstack-form.netlify.app/
 ## Installation
 
 ```bash
-npx shadcn@latest add https://fatahchan.github.io/shadcn-tanstack-form/r/tanstack-form.json
+npx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json
 ## optionally install zod
 npm install zod
 ```
