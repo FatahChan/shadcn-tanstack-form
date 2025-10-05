@@ -61,7 +61,6 @@
     "tailwind-scrollbar-hide": "^4.0.0",
     "tailwindcss": "^4.1.14",
     "tailwindcss-animate": "^1.0.7",
-    "vinxi": "^0.5.8",
     "zod": "^3.25.76"
   },
   "devDependencies": {
