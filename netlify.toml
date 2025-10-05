@@ -1,2 +1,2 @@
 [build]
-  command = "pnpm run build"
+  command = "VITE_COMMIT_REF=$COMMIT_REF pnpm run build"
