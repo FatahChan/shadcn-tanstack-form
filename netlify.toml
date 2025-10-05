@@ -1,2 +1,2 @@
 [build]
-  command = "VITE_COMMIT_REF=$COMMIT_REF vinxi build"
+  command = "VITE_COMMIT_REF=$COMMIT_REF pnpm run build"

@@ -17,10 +17,11 @@ export const Route = createFileRoute("/")({
       basicInfoBlock: parsedBasicInfoBlock,
     };
   },
+  ssr: false,
   component: Index,
 });
 
-export function Index() {
+function Index() {
   const { basicInfoBlock } = Route.useLoaderData();
   return (
     <main className="min-h-screen">

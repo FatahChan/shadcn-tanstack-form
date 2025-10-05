@@ -1,6 +1,7 @@
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - '@parcel/watcher'
+  - '@tailwindcss/oxide'
   - core-js
   - esbuild
   - lefthook
