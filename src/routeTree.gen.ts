@@ -8,174 +8,74 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComponentsIndexRouteImport } from './routes/components/index'
+import { Route as BlocksIndexRouteImport } from './routes/blocks/index'
+import { Route as PreviewSignUpRouteImport } from './routes/preview/sign-up'
+import { Route as PreviewShippingInfoRouteImport } from './routes/preview/shipping-info'
+import { Route as PreviewRichTextRouteImport } from './routes/preview/rich-text'
+import { Route as PreviewPhoneInputRouteImport } from './routes/preview/phone-input'
+import { Route as PreviewPasswordInputRouteImport } from './routes/preview/password-input'
+import { Route as PreviewLoginRouteImport } from './routes/preview/login'
+import { Route as PreviewBlogEditorRouteImport } from './routes/preview/blog-editor'
+import { Route as PreviewBasicInfoRouteImport } from './routes/preview/basic-info'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
-import { Route as ComponentsIndexImport } from './routes/components/index'
-import { Route as BlocksIndexImport } from './routes/blocks/index'
-import { Route as PreviewSignUpImport } from './routes/preview/sign-up'
-import { Route as PreviewShippingInfoImport } from './routes/preview/shipping-info'
-import { Route as PreviewRichTextImport } from './routes/preview/rich-text'
-import { Route as PreviewPhoneInputImport } from './routes/preview/phone-input'
-import { Route as PreviewPasswordInputImport } from './routes/preview/password-input'
-import { Route as PreviewLoginImport } from './routes/preview/login'
-import { Route as PreviewBlogEditorImport } from './routes/preview/blog-editor'
-import { Route as PreviewBasicInfoImport } from './routes/preview/basic-info'
-
-// Create/Update Routes
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const ComponentsIndexRoute = ComponentsIndexImport.update({
+const ComponentsIndexRoute = ComponentsIndexRouteImport.update({
   id: '/components/',
   path: '/components/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const BlocksIndexRoute = BlocksIndexImport.update({
+const BlocksIndexRoute = BlocksIndexRouteImport.update({
   id: '/blocks/',
   path: '/blocks/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewSignUpRoute = PreviewSignUpImport.update({
+const PreviewSignUpRoute = PreviewSignUpRouteImport.update({
   id: '/preview/sign-up',
   path: '/preview/sign-up',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewShippingInfoRoute = PreviewShippingInfoImport.update({
+const PreviewShippingInfoRoute = PreviewShippingInfoRouteImport.update({
   id: '/preview/shipping-info',
   path: '/preview/shipping-info',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewRichTextRoute = PreviewRichTextImport.update({
+const PreviewRichTextRoute = PreviewRichTextRouteImport.update({
   id: '/preview/rich-text',
   path: '/preview/rich-text',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewPhoneInputRoute = PreviewPhoneInputImport.update({
+const PreviewPhoneInputRoute = PreviewPhoneInputRouteImport.update({
   id: '/preview/phone-input',
   path: '/preview/phone-input',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewPasswordInputRoute = PreviewPasswordInputImport.update({
+const PreviewPasswordInputRoute = PreviewPasswordInputRouteImport.update({
   id: '/preview/password-input',
   path: '/preview/password-input',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewLoginRoute = PreviewLoginImport.update({
+const PreviewLoginRoute = PreviewLoginRouteImport.update({
   id: '/preview/login',
   path: '/preview/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewBlogEditorRoute = PreviewBlogEditorImport.update({
+const PreviewBlogEditorRoute = PreviewBlogEditorRouteImport.update({
   id: '/preview/blog-editor',
   path: '/preview/blog-editor',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PreviewBasicInfoRoute = PreviewBasicInfoImport.update({
+const PreviewBasicInfoRoute = PreviewBasicInfoRouteImport.update({
   id: '/preview/basic-info',
   path: '/preview/basic-info',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/basic-info': {
-      id: '/preview/basic-info'
-      path: '/preview/basic-info'
-      fullPath: '/preview/basic-info'
-      preLoaderRoute: typeof PreviewBasicInfoImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/blog-editor': {
-      id: '/preview/blog-editor'
-      path: '/preview/blog-editor'
-      fullPath: '/preview/blog-editor'
-      preLoaderRoute: typeof PreviewBlogEditorImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/login': {
-      id: '/preview/login'
-      path: '/preview/login'
-      fullPath: '/preview/login'
-      preLoaderRoute: typeof PreviewLoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/password-input': {
-      id: '/preview/password-input'
-      path: '/preview/password-input'
-      fullPath: '/preview/password-input'
-      preLoaderRoute: typeof PreviewPasswordInputImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/phone-input': {
-      id: '/preview/phone-input'
-      path: '/preview/phone-input'
-      fullPath: '/preview/phone-input'
-      preLoaderRoute: typeof PreviewPhoneInputImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/rich-text': {
-      id: '/preview/rich-text'
-      path: '/preview/rich-text'
-      fullPath: '/preview/rich-text'
-      preLoaderRoute: typeof PreviewRichTextImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/shipping-info': {
-      id: '/preview/shipping-info'
-      path: '/preview/shipping-info'
-      fullPath: '/preview/shipping-info'
-      preLoaderRoute: typeof PreviewShippingInfoImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview/sign-up': {
-      id: '/preview/sign-up'
-      path: '/preview/sign-up'
-      fullPath: '/preview/sign-up'
-      preLoaderRoute: typeof PreviewSignUpImport
-      parentRoute: typeof rootRoute
-    }
-    '/blocks/': {
-      id: '/blocks/'
-      path: '/blocks'
-      fullPath: '/blocks'
-      preLoaderRoute: typeof BlocksIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/components/': {
-      id: '/components/'
-      path: '/components'
-      fullPath: '/components'
-      preLoaderRoute: typeof ComponentsIndexImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -190,7 +90,6 @@ export interface FileRoutesByFullPath {
   '/blocks': typeof BlocksIndexRoute
   '/components': typeof ComponentsIndexRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
@@ -204,9 +103,8 @@ export interface FileRoutesByTo {
   '/blocks': typeof BlocksIndexRoute
   '/components': typeof ComponentsIndexRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
   '/preview/blog-editor': typeof PreviewBlogEditorRoute
@@ -219,7 +117,6 @@ export interface FileRoutesById {
   '/blocks/': typeof BlocksIndexRoute
   '/components/': typeof ComponentsIndexRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
@@ -262,7 +159,6 @@ export interface FileRouteTypes {
     | '/components/'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PreviewBasicInfoRoute: typeof PreviewBasicInfoRoute
@@ -275,6 +171,88 @@ export interface RootRouteChildren {
   PreviewSignUpRoute: typeof PreviewSignUpRoute
   BlocksIndexRoute: typeof BlocksIndexRoute
   ComponentsIndexRoute: typeof ComponentsIndexRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/components/': {
+      id: '/components/'
+      path: '/components'
+      fullPath: '/components'
+      preLoaderRoute: typeof ComponentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blocks/': {
+      id: '/blocks/'
+      path: '/blocks'
+      fullPath: '/blocks'
+      preLoaderRoute: typeof BlocksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/sign-up': {
+      id: '/preview/sign-up'
+      path: '/preview/sign-up'
+      fullPath: '/preview/sign-up'
+      preLoaderRoute: typeof PreviewSignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/shipping-info': {
+      id: '/preview/shipping-info'
+      path: '/preview/shipping-info'
+      fullPath: '/preview/shipping-info'
+      preLoaderRoute: typeof PreviewShippingInfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/rich-text': {
+      id: '/preview/rich-text'
+      path: '/preview/rich-text'
+      fullPath: '/preview/rich-text'
+      preLoaderRoute: typeof PreviewRichTextRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/phone-input': {
+      id: '/preview/phone-input'
+      path: '/preview/phone-input'
+      fullPath: '/preview/phone-input'
+      preLoaderRoute: typeof PreviewPhoneInputRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/password-input': {
+      id: '/preview/password-input'
+      path: '/preview/password-input'
+      fullPath: '/preview/password-input'
+      preLoaderRoute: typeof PreviewPasswordInputRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/login': {
+      id: '/preview/login'
+      path: '/preview/login'
+      fullPath: '/preview/login'
+      preLoaderRoute: typeof PreviewLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/blog-editor': {
+      id: '/preview/blog-editor'
+      path: '/preview/blog-editor'
+      fullPath: '/preview/blog-editor'
+      preLoaderRoute: typeof PreviewBlogEditorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/basic-info': {
+      id: '/preview/basic-info'
+      path: '/preview/basic-info'
+      fullPath: '/preview/basic-info'
+      preLoaderRoute: typeof PreviewBasicInfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -290,63 +268,15 @@ const rootRouteChildren: RootRouteChildren = {
   BlocksIndexRoute: BlocksIndexRoute,
   ComponentsIndexRoute: ComponentsIndexRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/preview/basic-info",
-        "/preview/blog-editor",
-        "/preview/login",
-        "/preview/password-input",
-        "/preview/phone-input",
-        "/preview/rich-text",
-        "/preview/shipping-info",
-        "/preview/sign-up",
-        "/blocks/",
-        "/components/"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/preview/basic-info": {
-      "filePath": "preview/basic-info.tsx"
-    },
-    "/preview/blog-editor": {
-      "filePath": "preview/blog-editor.tsx"
-    },
-    "/preview/login": {
-      "filePath": "preview/login.tsx"
-    },
-    "/preview/password-input": {
-      "filePath": "preview/password-input.tsx"
-    },
-    "/preview/phone-input": {
-      "filePath": "preview/phone-input.tsx"
-    },
-    "/preview/rich-text": {
-      "filePath": "preview/rich-text.tsx"
-    },
-    "/preview/shipping-info": {
-      "filePath": "preview/shipping-info.tsx"
-    },
-    "/preview/sign-up": {
-      "filePath": "preview/sign-up.tsx"
-    },
-    "/blocks/": {
-      "filePath": "blocks/index.tsx"
-    },
-    "/components/": {
-      "filePath": "components/index.tsx"
-    }
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }
-ROUTE_MANIFEST_END */

@@ -12,7 +12,7 @@ import * as RadioGroup from "@radix-ui/react-radio-group";
 import { Link } from "@tanstack/react-router";
 import { Check, Code2, Copy, Eye, Maximize, Terminal } from "lucide-react";
 import type React from "react";
-import { lazy, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   type ImperativePanelGroupHandle,
   Panel,
