@@ -17,7 +17,6 @@ export const Route = createFileRoute("/")({
       basicInfoBlock: parsedBasicInfoBlock,
     };
   },
-  ssr: false,
   component: Index,
 });
 
