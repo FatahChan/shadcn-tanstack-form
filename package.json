@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-      "test": "vitest run",
+    "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
     "check": "biome check --fix --unsafe",
@@ -33,7 +33,7 @@
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-form": "^1.23.5",
     "@tanstack/react-router": "^1.132.41",
-    "@tanstack/react-start": "^1.132.41",
+    "@tanstack/react-start": "^1.132.42",
     "@tanstack/router-plugin": "^1.132.41",
     "@udecode/plate": "^48.0.5",
     "@udecode/plate-basic-elements": "^48.0.0",
