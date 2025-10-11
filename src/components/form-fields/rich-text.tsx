@@ -20,6 +20,7 @@ import { MarkToolbarButton } from "@/components/ui/mark-toolbar-button";
 import { ParagraphElement } from "@/components/ui/paragraph-element";
 import { ToolbarButton } from "@/components/ui/toolbar";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export default function RichTextEditor({
   value,
@@ -28,12 +29,13 @@ export default function RichTextEditor({
   placeholder,
   className,
 }: {
-  value: string;
-  onChange: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
   onBlur?: () => void;
   placeholder?: string;
   className?: string;
 }) {
+  const [_value, _setValue] = useState<string>();
   const editor = usePlateEditor({
     plugins: [BasicElementsPlugin, BasicMarksPlugin, ListPlugin],
     components: {
@@ -54,14 +56,24 @@ export default function RichTextEditor({
       ul: (props: PlateElementProps) => <ListElement {...props} variant="ul" />,
       ol: (props: PlateElementProps) => <ListElement {...props} variant="ol" />,
       li: (props: PlateElementProps) => <PlateElement {...props} as="li" />,
-      value: value ? JSON.parse(value) : undefined,
+      value: value
+        ? JSON.parse(value)
+        : _value
+          ? JSON.parse(_value)
+          : undefined,
     },
   });
 
   return (
     <Plate
       editor={editor}
-      onChange={({ value }) => onChange?.(JSON.stringify(value))}
+      onChange={({ value }) => {
+        if (onChange) {
+          onChange(JSON.stringify(value));
+        } else {
+          _setValue(JSON.stringify(value));
+        }
+      }}
     >
       <div className="grid w-full">
         <FixedToolbar className="flex flex-wrap justify-start gap-1 border">
