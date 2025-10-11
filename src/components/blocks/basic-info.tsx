@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppForm } from "@/components/ui/tanstack-form";
+import { useAppForm } from "@/components/ui/tanstack-form-field";
 import { Textarea } from "@/components/ui/textarea";
 
 const FormSchema = z.object({
@@ -75,29 +75,29 @@ function BasicInfoForm({
           <form.AppField
             name="username"
             children={(field) => (
-              <field.FormItem className="space-y-1.5">
-                <field.FormLabel>Username</field.FormLabel>
-                <field.FormControl>
+              <field.Field className="space-y-1.5">
+                <field.FieldLabel>Username</field.FieldLabel>
+                <field.FieldControl>
                   <Input
                     placeholder="FatahChan"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                   />
-                </field.FormControl>
-                <field.FormDescription className="text-xs">
+                </field.FieldControl>
+                <field.FieldDescription className="text-xs">
                   This is your public display name.
-                </field.FormDescription>
-                <field.FormMessage className="text-xs" />
-              </field.FormItem>
+                </field.FieldDescription>
+                <field.FieldError className="text-xs" />
+              </field.Field>
             )}
           />
           <form.AppField
             name="email"
             children={(field) => (
-              <field.FormItem className="space-y-1.5">
-                <field.FormLabel>Email</field.FormLabel>
-                <field.FormControl>
+              <field.Field className="space-y-1.5">
+                <field.FieldLabel>Email</field.FieldLabel>
+                <field.FieldControl>
                   <Input
                     type="email"
                     placeholder="example@email.com"
@@ -105,20 +105,20 @@ function BasicInfoForm({
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                   />
-                </field.FormControl>
-                <field.FormDescription className="text-xs">
+                </field.FieldControl>
+                <field.FieldDescription className="text-xs">
                   Enter your email address for account verification.
-                </field.FormDescription>
-                <field.FormMessage className="text-xs" />
-              </field.FormItem>
+                </field.FieldDescription>
+                <field.FieldError className="text-xs" />
+              </field.Field>
             )}
           />
           <form.AppField
             name="age"
             children={(field) => (
-              <field.FormItem className="space-y-1.5">
-                <field.FormLabel>Age</field.FormLabel>
-                <field.FormControl>
+              <field.Field className="space-y-1.5">
+                <field.FieldLabel>Age</field.FieldLabel>
+                <field.FieldControl>
                   <Input
                     type="number"
                     inputMode="numeric"
@@ -126,32 +126,32 @@ function BasicInfoForm({
                     onChange={(e) => field.handleChange(Number(e.target.value))}
                     onBlur={field.handleBlur}
                   />
-                </field.FormControl>
-                <field.FormDescription className="text-xs">
+                </field.FieldControl>
+                <field.FieldDescription className="text-xs">
                   Must be at least 18 years old.
-                </field.FormDescription>
-                <field.FormMessage className="text-xs" />
-              </field.FormItem>
+                </field.FieldDescription>
+                <field.FieldError className="text-xs" />
+              </field.Field>
             )}
           />
           <form.AppField
             name="bio"
             children={(field) => (
-              <field.FormItem className="space-y-1.5">
-                <field.FormLabel>Bio</field.FormLabel>
-                <field.FormControl>
+              <field.Field className="space-y-1.5">
+                <field.FieldLabel>Bio</field.FieldLabel>
+                <field.FieldControl>
                   <Textarea
                     placeholder="Tell us about yourself"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                   />
-                </field.FormControl>
-                <field.FormDescription className="text-xs">
+                </field.FieldControl>
+                <field.FieldDescription className="text-xs">
                   A brief description about yourself (optional).
-                </field.FormDescription>
-                <field.FormMessage className="text-xs" />
-              </field.FormItem>
+                </field.FieldDescription>
+                <field.FieldError className="text-xs" />
+              </field.Field>
             )}
           />
         </div>

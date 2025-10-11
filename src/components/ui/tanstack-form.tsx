@@ -1,3 +1,4 @@
+// deprecated: use src/components/ui/tanstack-form-field.tsx instead
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
