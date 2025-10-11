@@ -222,15 +222,5 @@ function ShippingForm({
 }
 
 ShippingForm.displayName = "ShippingForm";
-ShippingForm.__CATEGORIES = ["forms", "checkout"];
-ShippingForm.__TITLE = "Shipping Info";
-ShippingForm.__DESCRIPTION =
-  "A shipping information form component built with TanStack Form.";
-ShippingForm.__DEPENDENCIES = ["zod"];
-ShippingForm.__REGISTRY_DEPENDENCIES = [
-  "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
-  "button",
-  "input",
-];
 
 export default ShippingForm;
