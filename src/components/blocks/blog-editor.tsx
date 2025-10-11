@@ -1,6 +1,8 @@
 "use client";
+import { revalidateLogic } from "@tanstack/react-form";
 import type { FormHTMLAttributes } from "react";
 import { useCallback } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 import RichTextEditor from "@/components/form-fields/rich-text";
 import { Button } from "@/components/ui/button";
@@ -32,9 +34,15 @@ function BlogEditor({
       title: defaultValues?.title ?? "",
       content: defaultValues?.content ?? "",
     },
-    validators: { onBlur: blogSchema },
-    onSubmit: ({ value }) => {
+    validators: { onDynamic: blogSchema },
+    validationLogic: revalidateLogic({
+      mode: "submit",
+      modeAfterSubmission: "change",
+    }),
+    onSubmit: ({ formApi, value }) => {
       onSubmit(value);
+      toast.success("Blog post created successfully!");
+      formApi.reset();
     },
   });
 

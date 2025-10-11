@@ -1,7 +1,9 @@
 "use client";
+import { revalidateLogic } from "@tanstack/react-form";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import type { FormHTMLAttributes } from "react";
 import { useCallback } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,9 +55,15 @@ function ShippingForm({
       postalCode: defaultValues?.postalCode ?? "",
       phone: defaultValues?.phone ?? "",
     },
-    validators: { onBlur: shippingSchema },
-    onSubmit: ({ value }) => {
+    validators: { onDynamic: shippingSchema },
+    validationLogic: revalidateLogic({
+      mode: "submit",
+      modeAfterSubmission: "change",
+    }),
+    onSubmit: ({ formApi, value }) => {
       onSubmit(value);
+      toast.success("Shipping information submitted successfully!");
+      formApi.reset();
     },
   });
 

@@ -10,6 +10,7 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/sonner";
 import { PostHogProvider } from "@/lib/posthog/provider";
 import appCss from "@/styles.css?url";
 
@@ -114,6 +115,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="bg-background">
         {children}
+        <Toaster />
         <Scripts />
       </body>
     </html>

@@ -1,5 +1,7 @@
 "use client";
+import { revalidateLogic } from "@tanstack/react-form";
 import { type FormHTMLAttributes, useCallback } from "react";
+import { toast } from "sonner";
 import * as z from "zod";
 import PasswordInput from "@/components/form-fields/password-input";
 import { Button } from "@/components/ui/button";
@@ -31,7 +33,16 @@ function LoginForm({
       email: defaultValues?.email ?? "",
       password: defaultValues?.password ?? "",
     },
-    validators: { onBlur: loginFormSchema },
+    validators: { onDynamic: loginFormSchema },
+    validationLogic: revalidateLogic({
+      mode: "submit",
+      modeAfterSubmission: "change",
+    }),
+    onSubmit: ({ formApi, value }) => {
+      onSubmit(value);
+      toast.success("Login successful!");
+      formApi.reset();
+    },
   });
 
   const handleSubmit = useCallback(

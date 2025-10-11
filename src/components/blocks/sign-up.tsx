@@ -1,6 +1,8 @@
 "use client";
+import { revalidateLogic } from "@tanstack/react-form";
 import type { FormHTMLAttributes } from "react";
 import { useCallback } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,9 +46,15 @@ function SignUpForm({
       confirmPassword: defaultValues?.confirmPassword ?? "",
       fullName: defaultValues?.fullName ?? "",
     },
-    validators: { onBlur: signUpSchema },
-    onSubmit: ({ value }) => {
+    validators: { onDynamic: signUpSchema },
+    validationLogic: revalidateLogic({
+      mode: "submit",
+      modeAfterSubmission: "change",
+    }),
+    onSubmit: ({ formApi, value }) => {
       onSubmit(value);
+      toast.success("Sign up successful!");
+      formApi.reset();
     },
   });
 

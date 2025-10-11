@@ -1,10 +1,12 @@
 "use client";
+import { revalidateLogic } from "@tanstack/react-form";
+import { type FormHTMLAttributes, useCallback } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
 import { Textarea } from "@/components/ui/textarea";
-import { type FormHTMLAttributes, useCallback } from "react";
-import { z } from "zod";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -13,7 +15,7 @@ const FormSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  age: z.number().min(8, {
+  age: z.number().min(18, {
     message: "Age must be at least 18 years.",
   }),
   bio: z.string().max(160, {
@@ -35,16 +37,21 @@ function BasicInfoForm({
   ...props
 }: BasicInfoFormProps) {
   const form = useAppForm({
-    validators: { onBlur: FormSchema },
+    validators: { onDynamic: FormSchema },
+    validationLogic: revalidateLogic({
+      mode: "submit",
+      modeAfterSubmission: "change",
+    }),
+    onSubmit: ({ formApi, value }) => {
+      onSubmit(value);
+      toast.success("Account created successfully!");
+      formApi.reset();
+    },
     defaultValues: defaultValues ?? {
       username: "",
       email: "",
       age: 0,
       bio: "",
-    },
-    onSubmit: ({ formApi, value }) => {
-      onSubmit(value);
-      formApi.reset();
     },
   });
 
