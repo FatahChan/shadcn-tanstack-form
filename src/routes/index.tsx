@@ -67,7 +67,7 @@ function Index() {
           <h3 className="font-bold text-2xl">Installation</h3>
           <CodeSnippet
             code={
-              "pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json"
+              "pnpm dlx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/tanstack-form-field.json"
             }
           />
         </div>

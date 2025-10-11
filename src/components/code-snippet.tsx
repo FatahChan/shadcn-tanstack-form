@@ -1,5 +1,5 @@
+import { ClientOnly } from "@tanstack/react-router";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
-
 import { Check, Copy } from "lucide-react";
 import type React from "react";
 import { CodeBlock } from "@/components/code-block";
@@ -16,12 +16,23 @@ export const CodeSnippet: React.FC<{
   return (
     <section className="group mb-16 border-b [--color-border:color-mix(in_oklab,var(--color-zinc-200)_75%,transparent)] dark:[--color-border:color-mix(in_oklab,var(--color-zinc-800)_60%,transparent)]">
       <div className="flex items-center justify-between dark:bg-zinc-900/50">
-        <CodeBlock
-          code={code}
-          lang="tsx"
-          className="w-full [&_pre]:min-h-[0rem]"
-          maxHeight={height || DEFAULT_HEIGHT}
-        />
+        <ClientOnly
+          fallback={
+            <CodeBlock
+              code={code}
+              lang="tsx"
+              className="w-full [&_pre]:min-h-[0rem]"
+              maxHeight={DEFAULT_HEIGHT}
+            />
+          }
+        >
+          <CodeBlock
+            code={code}
+            lang="tsx"
+            className="w-full [&_pre]:min-h-[0rem]"
+            maxHeight={height || DEFAULT_HEIGHT}
+          />
+        </ClientOnly>
         <Button
           onClick={() => copy(code)}
           size="sm"

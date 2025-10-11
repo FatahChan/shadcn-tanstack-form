@@ -1,5 +1,5 @@
 import * as RadioGroup from "@radix-ui/react-radio-group";
-import { Link } from "@tanstack/react-router";
+import { ClientOnly, Link } from "@tanstack/react-router";
 import {
   useCopyToClipboard,
   useIntersectionObserver,
@@ -271,12 +271,23 @@ export const BlockPreview: React.FC<
               hidden: mode !== "code",
             })}
           >
-            <CodeBlock
-              code={content}
-              lang="tsx"
-              className="min-h-32"
-              maxHeight={iframeHeight || DEFAULT_HEIGHT}
-            />
+            <ClientOnly
+              fallback={
+                <CodeBlock
+                  code={content}
+                  lang="tsx"
+                  className="min-h-32"
+                  maxHeight={DEFAULT_HEIGHT}
+                />
+              }
+            >
+              <CodeBlock
+                code={content}
+                lang="tsx"
+                className="min-h-32"
+                maxHeight={iframeHeight || DEFAULT_HEIGHT}
+              />
+            </ClientOnly>
           </div>
         </div>
       </div>
