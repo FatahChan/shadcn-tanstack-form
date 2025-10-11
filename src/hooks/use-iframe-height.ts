@@ -1,6 +1,6 @@
 import { useMeasure } from "@uidotdev/usehooks";
 import { useEffect, useMemo } from "react";
-import { useLocalStorageWithCommitRef } from "./use-local-storage";
+import { useLocalStorageWithCommitRef } from "@/hooks/use-local-storage";
 
 export const useIframeHeight = ({
   slug,

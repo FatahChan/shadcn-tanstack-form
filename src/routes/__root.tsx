@@ -1,17 +1,17 @@
 /// <reference types="vite/client" />
 
 import {
+  createRootRouteWithContext,
   HeadContent,
   Link,
   Outlet,
   Scripts,
-  createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { Button } from "@/components/ui/button";
 import { PostHogProvider } from "@/lib/posthog/provider";
-import appCss from "../styles.css?url";
+import appCss from "@/styles.css?url";
 
 export const Route = createRootRouteWithContext()({
   head: () => ({

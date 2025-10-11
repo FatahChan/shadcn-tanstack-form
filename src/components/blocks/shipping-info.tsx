@@ -1,12 +1,13 @@
 "use client";
+import { isValidPhoneNumber } from "libphonenumber-js";
+import type { FormHTMLAttributes } from "react";
+import { useCallback } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
-import { isValidPhoneNumber } from "libphonenumber-js";
-import { useCallback } from "react";
-import type { FormHTMLAttributes } from "react";
-import { z } from "zod";
 import PhoneInputField from "../form-fields/phone-input";
+
 const shippingSchema = z.object({
   fullName: z.string().min(2, {
     message: "Full name must be at least 2 characters long.",

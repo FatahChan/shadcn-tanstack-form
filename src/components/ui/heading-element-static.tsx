@@ -1,9 +1,6 @@
-import * as React from "react";
-
 import type { SlateElementProps } from "@udecode/plate";
-
 import { SlateElement } from "@udecode/plate";
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 const headingVariants = cva("relative mb-1", {
   variants: {

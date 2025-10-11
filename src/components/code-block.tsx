@@ -1,12 +1,12 @@
 // This code is adapted from Origin UI
 // Source: https://github.com/origin-space/originui/blob/main/components/code-block.tsx
 
-import { cn } from "@/lib/utils";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { type JSX, useEffect, useState } from "react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import type { BundledLanguage } from "shiki/bundle/web";
 import { codeToHast } from "shiki/bundle/web";
+import { cn } from "@/lib/utils";
 
 export async function highlight(code: string, lang: BundledLanguage) {
   const hast = await codeToHast(code, {

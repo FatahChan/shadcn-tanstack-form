@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.2.5/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -7,19 +7,26 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [
-      "src/routeTree.gen.ts",
-      "src/registry/new-york/components/form-fields"
-    ],
-    "include": ["src/*", ".vscode/*", "index.html", "vite.config.js"]
+    "includes": [
+      "src/**/*",
+      ".vscode/**/*",
+      "index.html",
+      "vite.config.js",
+      "!src/routeTree.gen.ts",
+      "!src/registry/new-york/components/form-fields"
+    ]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "linter": {
     "enabled": true,
@@ -32,17 +39,40 @@
           "options": {}
         }
       },
+      "a11y": {
+        "useSemanticElements": "off"
+      },
       "complexity": {
         "noForEach": "off"
       },
       "correctness": {
         "noChildrenProp": "off"
+      },
+      "suspicious": {
+        "noUnknownAtRules": "off"
+      },
+      "style": {
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["./*", "../*", "!./routeTree.gen"]
+              }
+            ]
+          }
+        }
       }
     }
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "double"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true
     }
   }
 }

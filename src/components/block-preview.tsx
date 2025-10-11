@@ -1,15 +1,9 @@
-import { Separator } from "@/components/ui/separator";
+import * as RadioGroup from "@radix-ui/react-radio-group";
+import { Link } from "@tanstack/react-router";
 import {
   useCopyToClipboard,
   useIntersectionObserver,
 } from "@uidotdev/usehooks";
-
-import { useIframeHeight } from "@/hooks/use-iframe-height";
-import { usePreload } from "@/hooks/use-preload";
-import { cn } from "@/lib/utils";
-import type { RegistryItem } from "@/schemas/registry-item";
-import * as RadioGroup from "@radix-ui/react-radio-group";
-import { Link } from "@tanstack/react-router";
 import { Check, Code2, Copy, Eye, Maximize, Terminal } from "lucide-react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
@@ -19,8 +13,13 @@ import {
   PanelGroup,
   PanelResizeHandle,
 } from "react-resizable-panels";
-import { CodeBlock } from "./code-block";
-import { Button } from "./ui/button";
+import { CodeBlock } from "@/components/code-block";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useIframeHeight } from "@/hooks/use-iframe-height";
+import { usePreload } from "@/hooks/use-preload";
+import { cn } from "@/lib/utils";
+import type { RegistryItem } from "@/schemas/registry-item";
 
 const radioItem =
   "rounded-(--radius) duration-200 flex items-center justify-center h-8 px-2.5 gap-2 transition-[color] data-[state=checked]:bg-muted";
@@ -257,15 +256,13 @@ export const BlockPreview: React.FC<
                 </div>
               </Panel>
 
-              <>
-                <PanelResizeHandle className="relative hidden w-2 before:absolute before:inset-0 before:m-auto before:h-12 before:w-1 before:rounded-full before:bg-zinc-300 before:transition-[height,background] hover:before:h-16 hover:before:bg-zinc-400 focus:before:bg-zinc-400 lg:block dark:before:bg-zinc-600 dark:focus:before:bg-zinc-400 dark:hover:before:bg-zinc-500" />
-                <Panel
-                  id={`code-${title}`}
-                  order={2}
-                  defaultSize={100 - DEFAULTSIZE}
-                  className="-mr-[0.5px] ml-px"
-                />
-              </>
+              <PanelResizeHandle className="relative hidden w-2 before:absolute before:inset-0 before:m-auto before:h-12 before:w-1 before:rounded-full before:bg-zinc-300 before:transition-[height,background] hover:before:h-16 hover:before:bg-zinc-400 focus:before:bg-zinc-400 lg:block dark:before:bg-zinc-600 dark:focus:before:bg-zinc-400 dark:hover:before:bg-zinc-500" />
+              <Panel
+                id={`code-${title}`}
+                order={2}
+                defaultSize={100 - DEFAULTSIZE}
+                className="-mr-[0.5px] ml-px"
+              />
             </PanelGroup>
           </div>
 

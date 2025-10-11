@@ -1,11 +1,8 @@
 "use client";
 
-import * as React from "react";
-
 import type { PlateElementProps } from "@udecode/plate/react";
-
 import { PlateElement } from "@udecode/plate/react";
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 const listVariants = cva("m-0 ps-6", {
   variants: {

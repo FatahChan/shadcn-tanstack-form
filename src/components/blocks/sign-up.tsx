@@ -1,10 +1,10 @@
 "use client";
+import type { FormHTMLAttributes } from "react";
+import { useCallback } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
-import { useCallback } from "react";
-import type { FormHTMLAttributes } from "react";
-import { z } from "zod";
 
 const signUpSchema = z
   .object({

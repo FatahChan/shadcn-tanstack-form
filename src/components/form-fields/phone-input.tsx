@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
 import { AsYouType, type CountryCode } from "libphonenumber-js";
 import type { ComponentProps } from "react";
 import { NumberFormatBase } from "react-number-format";
+import { Input } from "@/components/ui/input";
 
 interface PhoneInputFieldProps
   extends Omit<

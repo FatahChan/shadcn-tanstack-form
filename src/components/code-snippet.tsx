@@ -2,8 +2,8 @@ import { useCopyToClipboard } from "@uidotdev/usehooks";
 
 import { Check, Copy } from "lucide-react";
 import type React from "react";
-import { CodeBlock } from "./code-block";
-import { Button } from "./ui/button";
+import { CodeBlock } from "@/components/code-block";
+import { Button } from "@/components/ui/button";
 
 const DEFAULT_HEIGHT = 224;
 

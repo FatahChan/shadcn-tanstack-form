@@ -1,11 +1,11 @@
 "use client";
+import { type FormHTMLAttributes, useCallback } from "react";
+import * as z from "zod";
 import PasswordInput from "@/components/form-fields/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
 import { cn } from "@/lib/utils";
-import { type FormHTMLAttributes, useCallback } from "react";
-import * as z from "zod";
 
 const loginFormSchema = z.object({
   email: z.string(),

@@ -1,3 +1,6 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Filter } from "lucide-react";
+import { z } from "zod";
 import registry from "@/../registry.json";
 import BlockPreview from "@/components/block-preview";
 import { Button } from "@/components/ui/button";
@@ -9,9 +12,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { registryItemSchema } from "@/schemas/registry-item";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Filter } from "lucide-react";
-import { z } from "zod";
 export const Route = createFileRoute("/components/")({
   validateSearch: z.object({
     filter: z.array(z.string()).optional(),

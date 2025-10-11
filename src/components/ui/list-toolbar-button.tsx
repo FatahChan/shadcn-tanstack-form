@@ -1,15 +1,14 @@
 "use client";
 
-import type * as React from "react";
-
 import {
   BulletedListPlugin,
   useListToolbarButton,
   useListToolbarButtonState,
 } from "@udecode/plate-list/react";
 import { List, ListOrdered } from "lucide-react";
+import type * as React from "react";
 
-import { ToolbarButton } from "./toolbar";
+import { ToolbarButton } from "@/components/ui/toolbar";
 
 export function ListToolbarButton({
   nodeType = BulletedListPlugin.key,

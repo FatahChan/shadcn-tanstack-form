@@ -1,6 +1,3 @@
-import { BasicElementsPlugin } from "@udecode/plate-basic-elements/react";
-import { BasicMarksPlugin } from "@udecode/plate-basic-marks/react";
-import { ListPlugin } from "@udecode/plate-list/react";
 import {
   Plate,
   PlateElement,
@@ -9,7 +6,10 @@ import {
   type PlateLeafProps,
   usePlateEditor,
 } from "@udecode/plate/react";
-
+import { BasicElementsPlugin } from "@udecode/plate-basic-elements/react";
+import { BasicMarksPlugin } from "@udecode/plate-basic-marks/react";
+import { ListPlugin } from "@udecode/plate-list/react";
+import { useState } from "react";
 import { BlockquoteElement } from "@/components/ui/blockquote-element";
 import { Editor, EditorContainer } from "@/components/ui/editor";
 import { FixedToolbar } from "@/components/ui/fixed-toolbar";
@@ -20,7 +20,6 @@ import { MarkToolbarButton } from "@/components/ui/mark-toolbar-button";
 import { ParagraphElement } from "@/components/ui/paragraph-element";
 import { ToolbarButton } from "@/components/ui/toolbar";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 export default function RichTextEditor({
   value,

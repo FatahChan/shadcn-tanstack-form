@@ -1,10 +1,7 @@
 "use client";
 
-import type { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-
 import { Eye, EyeOff } from "lucide-react";
-import type { ComponentProps, HTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 import { useCallback, useState } from "react";
 import {
   InputGroup,

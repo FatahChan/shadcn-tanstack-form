@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -67,6 +67,13 @@ function InputGroupAddon({
       data-align={align}
       className={cn(inputGroupAddonVariants({ align }), className)}
       onClick={(e) => {
+        if ((e.target as HTMLElement).closest("button")) {
+          return;
+        }
+        e.currentTarget.parentElement?.querySelector("input")?.focus();
+      }}
+      onKeyDown={(e) => {
+        if (e.key !== "Enter") return;
         if ((e.target as HTMLElement).closest("button")) {
           return;
         }

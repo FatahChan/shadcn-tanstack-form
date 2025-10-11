@@ -1,9 +1,9 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
 import registry from "@/../registry.json";
 import BlockPreview from "@/components/block-preview";
 import CodeSnippet from "@/components/code-snippet";
 import { Button } from "@/components/ui/button";
 import { registryItemSchema } from "@/schemas/registry-item";
-import { Link, createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   loader: () => {
     const basicInfoBlock = registry.items.find(

@@ -1,6 +1,3 @@
-import { componentMetadataSchema } from "@/schemas/component-meta-data";
-import { registrySchema } from "@/schemas/registry";
-import { registryItemSchema } from "@/schemas/registry-item";
 import { FileSystem, Path } from "@effect/platform";
 import {
   NodeContext,
@@ -9,6 +6,9 @@ import {
 } from "@effect/platform-node";
 import { Console, Data, Effect, Match, Stream } from "effect";
 import type { ZodType, z } from "zod";
+import { componentMetadataSchema } from "@/schemas/component-meta-data";
+import { registrySchema } from "@/schemas/registry";
+import { registryItemSchema } from "@/schemas/registry-item";
 
 const blockTemplate = ({
   blockSlug,
