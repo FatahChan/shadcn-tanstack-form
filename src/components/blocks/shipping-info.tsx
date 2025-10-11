@@ -5,10 +5,10 @@ import type { FormHTMLAttributes } from "react";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import PhoneInputField from "@/components/form-fields/phone-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppForm } from "@/components/ui/tanstack-form";
-import PhoneInputField from "../form-fields/phone-input";
 
 const shippingSchema = z.object({
   fullName: z.string().min(2, {

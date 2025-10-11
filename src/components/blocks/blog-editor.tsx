@@ -7,7 +7,7 @@ import { z } from "zod";
 import RichTextEditor from "@/components/form-fields/rich-text";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppForm } from "@/components/ui/tanstack-form";
+import { useAppForm } from "@/components/ui/tanstack-form-field";
 
 const blogSchema = z.object({
   title: z.string().min(1, {
@@ -66,34 +66,34 @@ function BlogEditor({
         <form.AppField
           name="title"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Title</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Title</field.FieldLabel>
+              <field.FieldControl>
                 <Input
                   placeholder="Enter blog title..."
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldControl>
+              <field.FieldError />
+            </field.Field>
           )}
         />
 
         <form.AppField
           name="content"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Content</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Content</field.FieldLabel>
+              <field.FieldControl>
                 <RichTextEditor
                   value={field.state.value}
                   onChange={(value) => field.handleChange(value)}
                 />
-              </field.FormControl>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldControl>
+              <field.FieldError />
+            </field.Field>
           )}
         />
 

@@ -6,7 +6,7 @@ import * as z from "zod";
 import PasswordInput from "@/components/form-fields/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppForm } from "@/components/ui/tanstack-form";
+import { useAppForm } from "@/components/ui/tanstack-form-field";
 import { cn } from "@/lib/utils";
 
 const loginFormSchema = z.object({
@@ -67,9 +67,9 @@ function LoginForm({
         <form.AppField
           name="email"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Email</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Email</field.FieldLabel>
+              <field.FieldControl>
                 <Input
                   placeholder="example@example.com"
                   type="email"
@@ -77,31 +77,33 @@ function LoginForm({
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormDescription>This is your email</field.FormDescription>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldControl>
+              <field.FieldDescription>
+                This is your email
+              </field.FieldDescription>
+              <field.FieldError />
+            </field.Field>
           )}
         />
 
         <form.AppField
           name="password"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Password</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Password</field.FieldLabel>
+              <field.FieldControl>
                 <PasswordInput
                   placeholder="password"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormDescription>
+              </field.FieldControl>
+              <field.FieldDescription>
                 This is your password
-              </field.FormDescription>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldDescription>
+              <field.FieldError />
+            </field.Field>
           )}
         />
         <Button type="submit" className="w-full">

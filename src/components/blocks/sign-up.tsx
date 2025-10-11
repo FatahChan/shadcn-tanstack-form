@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppForm } from "@/components/ui/tanstack-form";
+import { useAppForm } from "@/components/ui/tanstack-form-field";
 
 const signUpSchema = z
   .object({
@@ -78,27 +78,27 @@ function SignUpForm({
         <form.AppField
           name="fullName"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Full Name</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Full Name</field.FieldLabel>
+              <field.FieldControl>
                 <Input
                   placeholder="John Doe"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldControl>
+              <field.FieldError />
+            </field.Field>
           )}
         />
 
         <form.AppField
           name="email"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Email</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Email</field.FieldLabel>
+              <field.FieldControl>
                 <Input
                   type="email"
                   placeholder="john.doe@example.com"
@@ -106,45 +106,45 @@ function SignUpForm({
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldControl>
+              <field.FieldError />
+            </field.Field>
           )}
         />
 
         <form.AppField
           name="password"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Password</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Password</field.FieldLabel>
+              <field.FieldControl>
                 <Input
                   type="password"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldControl>
+              <field.FieldError />
+            </field.Field>
           )}
         />
 
         <form.AppField
           name="confirmPassword"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Confirm Password</field.FormLabel>
-              <field.FormControl>
+            <field.Field>
+              <field.FieldLabel>Confirm Password</field.FieldLabel>
+              <field.FieldControl>
                 <Input
                   type="password"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldControl>
+              <field.FieldError />
+            </field.Field>
           )}
         />
 

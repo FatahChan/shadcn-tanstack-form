@@ -4,7 +4,7 @@
   "description": "A login form component built with TanStack Form.",
   "dependencies": ["zod"],
   "registryDependencies": [
-    "https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json",
+    "https://shadcn-tanstack-form.netlify.app/r/tanstack-form-field.json",
     "button",
     "input"
   ]
