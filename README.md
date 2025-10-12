@@ -22,11 +22,22 @@ A modern, type-safe form management solution that combines the elegant UI compon
 - 🔑 Password Input - Secure password field with show/hide functionality
 - 📞 Phone Input - International phone number input with formatting
 - coming soon...
+
+## Explore
+
+- **[📚 Documentation](https://shadcn-tanstack-form.netlify.app/docs)** - Complete guides and API reference
+- **[🧱 Form Blocks](https://shadcn-tanstack-form.netlify.app/blocks)** - Pre-built form examples
+- **[🎨 Components](https://shadcn-tanstack-form.netlify.app/components)** - Individual form field components
 ## Documentation
 
-https://shadcn-tanstack-form.netlify.app/
+For comprehensive documentation, examples, and guides, visit:
 
-## Installation
+- **📚 [Full Documentation](https://shadcn-tanstack-form.netlify.app/docs)** - Complete guide with installation, usage examples, and API reference
+- **🎨 [Live Demo](https://shadcn-tanstack-form.netlify.app/)** - Interactive examples and component showcase
+
+## Quick Start
+
+### Installation
 
 ```bash
 npx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/tanstack-form.json
@@ -34,14 +45,18 @@ npx shadcn@canary add https://shadcn-tanstack-form.netlify.app/r/tanstack-form.j
 npm install zod
 ```
 
+> 💡 **Need help?** Check out our [comprehensive documentation](https://shadcn-tanstack-form.netlify.app/docs) for detailed installation instructions and examples.
+
 ## Usage
 
 The project demonstrates how to integrate Shadcn UI components with TanStack Form. Here's a basic example:
 
+> 📖 **For more examples and detailed guides**, visit our [documentation page](https://shadcn-tanstack-form.netlify.app/docs).
+
 ```tsx
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppForm } from "@/components/ui/tanstack-form";
+import { useAppForm } from "@/components/ui/tanstack-form-field";
 import { useCallback } from "react";
 import { z } from "zod";
 
@@ -49,15 +64,22 @@ const FormSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
 });
 
-export function InputForm() {
+export function MyForm() {
   const form = useAppForm({
-    validators: { onChange: FormSchema },
+    validators: { onDynamic: FormSchema },
+    onSubmit: ({ value }) => {
+      console.log(value);
+      // Handle form submission
+    },
     defaultValues: {
       username: "",
+      email: "",
     },
-    onSubmit: ({ value }) => console.log(value),
   });
 
   const handleSubmit = useCallback(
@@ -68,27 +90,49 @@ export function InputForm() {
     },
     [form],
   );
+
   return (
     <form.AppForm>
       <form className="space-y-6" onSubmit={handleSubmit}>
         <form.AppField
           name="username"
           children={(field) => (
-            <field.FormItem>
-              <field.FormLabel>Username</field.FormLabel>
-              <field.FormControl>
+            <field.Field className="space-y-1.5">
+              <field.FieldLabel>Username</field.FieldLabel>
+              <field.FieldControl>
                 <Input
                   placeholder="FatahChan"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                 />
-              </field.FormControl>
-              <field.FormDescription>
+              </field.FieldControl>
+              <field.FieldDescription>
                 This is your public display name.
-              </field.FormDescription>
-              <field.FormMessage />
-            </field.FormItem>
+              </field.FieldDescription>
+              <field.FieldError />
+            </field.Field>
+          )}
+        />
+        <form.AppField
+          name="email"
+          children={(field) => (
+            <field.Field className="space-y-1.5">
+              <field.FieldLabel>Email</field.FieldLabel>
+              <field.FieldControl>
+                <Input
+                  type="email"
+                  placeholder="example@email.com"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
+              </field.FieldControl>
+              <field.FieldDescription>
+                Enter your email address.
+              </field.FieldDescription>
+              <field.FieldError />
+            </field.Field>
           )}
         />
         <Button type="submit">Submit</Button>
