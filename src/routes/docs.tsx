@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { Check, Terminal } from "lucide-react";
-import CodePanel from "@/components/code-panel";
-import CodeSnippet from "@/components/code-snippet";
+import CodePanel from "@/components/preview/code-panel";
+import CodeSnippet from "@/components/preview/code-snippet";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 

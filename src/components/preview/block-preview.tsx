@@ -1,5 +1,5 @@
 import type React from "react";
-import CodePanel from "@/components/code-panel";
+import CodePanel from "@/components/preview/code-panel";
 import type { RegistryItem } from "@/schemas/registry-item";
 export const BlockPreview: React.FC<
   RegistryItem & { previewOnly?: boolean; codeOnly?: boolean }

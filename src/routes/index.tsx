@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import registry from "@/../registry.json";
-import BlockPreview from "@/components/block-preview";
-import CodeSnippet from "@/components/code-snippet";
+import BlockPreview from "@/components/preview/block-preview";
+import CodeSnippet from "@/components/preview/code-snippet";
 import { Button } from "@/components/ui/button";
 import { registryItemSchema } from "@/schemas/registry-item";
 export const Route = createFileRoute("/")({

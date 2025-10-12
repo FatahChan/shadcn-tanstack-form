@@ -13,8 +13,8 @@ import {
   PanelGroup,
   PanelResizeHandle,
 } from "react-resizable-panels";
-import { CodeBlock } from "@/components/code-block";
-import CodeSnippet from "@/components/code-snippet";
+import { CodeBlock } from "@/components/preview/code-block";
+import CodeSnippet from "@/components/preview/code-snippet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useIframeHeight } from "@/hooks/use-iframe-height";

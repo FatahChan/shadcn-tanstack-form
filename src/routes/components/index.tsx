@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Filter } from "lucide-react";
 import { z } from "zod";
 import registry from "@/../registry.json";
-import BlockPreview from "@/components/block-preview";
+import BlockPreview from "@/components/preview/block-preview";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
