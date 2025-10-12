@@ -24,6 +24,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@/components/ui/*": ["./src/components/ui/*", "./src/components/form-fields/*", ],
     }
   }
 }

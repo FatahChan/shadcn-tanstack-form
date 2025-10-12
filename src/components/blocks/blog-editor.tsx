@@ -4,9 +4,9 @@ import type { FormHTMLAttributes } from "react";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import RichTextEditor from "@/components/form-fields/rich-text";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import RichTextEditor from "@/components/ui/rich-text";
 import { useAppForm } from "@/components/ui/tanstack-form-field";
 
 const blogSchema = z.object({

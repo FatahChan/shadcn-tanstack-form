@@ -3,9 +3,9 @@ import { revalidateLogic } from "@tanstack/react-form";
 import { type FormHTMLAttributes, useCallback } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
-import PasswordInput from "@/components/form-fields/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import PasswordInput from "@/components/ui/password-input";
 import { useAppForm } from "@/components/ui/tanstack-form-field";
 import { cn } from "@/lib/utils";
 
