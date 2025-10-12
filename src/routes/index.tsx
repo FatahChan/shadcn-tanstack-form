@@ -28,7 +28,7 @@ function Index() {
         {/* Hero Section */}
         <div className="text-center">
           <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl">
-            Shadcn UI Fields Component + TanStack Form
+            Shadcn UI Fields + TanStack Form
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg">
             A modern, type-safe form management solution combining{" "}
@@ -77,6 +77,9 @@ function Index() {
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-2xl">Usage</h3>
             <div className="flex gap-2">
+              <Button asChild variant="outline">
+                <Link to="/docs">Documentation</Link>
+              </Button>
               <Button asChild variant="outline">
                 <Link to="/blocks">View All Blocks</Link>
               </Button>

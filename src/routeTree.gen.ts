@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComponentsIndexRouteImport } from './routes/components/index'
 import { Route as BlocksIndexRouteImport } from './routes/blocks/index'
@@ -21,6 +22,11 @@ import { Route as PreviewLoginRouteImport } from './routes/preview/login'
 import { Route as PreviewBlogEditorRouteImport } from './routes/preview/blog-editor'
 import { Route as PreviewBasicInfoRouteImport } from './routes/preview/basic-info'
 
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,6 +85,7 @@ const PreviewBasicInfoRoute = PreviewBasicInfoRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/docs': typeof DocsRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
   '/preview/blog-editor': typeof PreviewBlogEditorRoute
   '/preview/login': typeof PreviewLoginRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/docs': typeof DocsRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
   '/preview/blog-editor': typeof PreviewBlogEditorRoute
   '/preview/login': typeof PreviewLoginRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/docs': typeof DocsRoute
   '/preview/basic-info': typeof PreviewBasicInfoRoute
   '/preview/blog-editor': typeof PreviewBlogEditorRoute
   '/preview/login': typeof PreviewLoginRoute
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/docs'
     | '/preview/basic-info'
     | '/preview/blog-editor'
     | '/preview/login'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/docs'
     | '/preview/basic-info'
     | '/preview/blog-editor'
     | '/preview/login'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/docs'
     | '/preview/basic-info'
     | '/preview/blog-editor'
     | '/preview/login'
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DocsRoute: typeof DocsRoute
   PreviewBasicInfoRoute: typeof PreviewBasicInfoRoute
   PreviewBlogEditorRoute: typeof PreviewBlogEditorRoute
   PreviewLoginRoute: typeof PreviewLoginRoute
@@ -175,6 +188,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -257,6 +277,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DocsRoute: DocsRoute,
   PreviewBasicInfoRoute: PreviewBasicInfoRoute,
   PreviewBlogEditorRoute: PreviewBlogEditorRoute,
   PreviewLoginRoute: PreviewLoginRoute,

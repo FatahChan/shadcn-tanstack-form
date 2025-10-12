@@ -1,53 +1,29 @@
-import { ClientOnly } from "@tanstack/react-router";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
-import { Check, Copy } from "lucide-react";
-import type React from "react";
-import { CodeBlock } from "@/components/code-block";
+import { Check, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const DEFAULT_HEIGHT = 224;
-
-export const CodeSnippet: React.FC<{
-  code: string;
-  height?: number;
-}> = ({ code, height }) => {
-  const [copied, copy] = useCopyToClipboard();
+const CodeSnippet: React.FC<
+  { code: string } & React.ComponentProps<typeof Button>
+> = ({ code, className, ...props }) => {
+  const [cliCopied, cliCopy] = useCopyToClipboard();
 
   return (
-    <section className="group mb-16 border-b [--color-border:color-mix(in_oklab,var(--color-zinc-200)_75%,transparent)] dark:[--color-border:color-mix(in_oklab,var(--color-zinc-800)_60%,transparent)]">
-      <div className="flex items-center justify-between dark:bg-zinc-900/50">
-        <ClientOnly
-          fallback={
-            <CodeBlock
-              code={code}
-              lang="tsx"
-              className="w-full [&_pre]:min-h-[0rem]"
-              maxHeight={DEFAULT_HEIGHT}
-            />
-          }
-        >
-          <CodeBlock
-            code={code}
-            lang="tsx"
-            className="w-full [&_pre]:min-h-[0rem]"
-            maxHeight={height || DEFAULT_HEIGHT}
-          />
-        </ClientOnly>
-        <Button
-          onClick={() => copy(code)}
-          size="sm"
-          variant="ghost"
-          aria-label="copy code"
-          className="size-16 bg-transparent"
-        >
-          {copied ? (
-            <Check className="size-4" />
-          ) : (
-            <Copy className="!size-3.5" />
-          )}
-        </Button>
-      </div>
-    </section>
+    <Button
+      onClick={() => cliCopy(code)}
+      variant="outline"
+      size={"lg"}
+      className={cn("justify-between font-mono font-normal", className)}
+      aria-label="copy code"
+      {...props}
+    >
+      <span className="hidden font-mono text-xs md:block">{code}</span>
+      {cliCopied ? (
+        <Check className="size-4" />
+      ) : (
+        <Terminal className="!size-3.5" />
+      )}
+    </Button>
   );
 };
 
