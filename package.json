@@ -34,7 +34,7 @@
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-form": "^1.23.5",
     "@tanstack/react-router": "^1.132.41",
-    "@tanstack/react-start": "^1.132.42",
+    "@tanstack/react-start": "https://pkg.pr.new/TanStack/router/@tanstack/react-start@5475",
     "@tanstack/router-plugin": "^1.132.41",
     "@udecode/plate": "^48.0.5",
     "@udecode/plate-basic-elements": "^48.0.0",
