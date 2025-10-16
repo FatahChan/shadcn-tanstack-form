@@ -122,7 +122,7 @@ const CodePanel: React.FC<CodePanelProps> = ({
                 </RadioGroup.Item>
               </RadioGroup.Root>
             )}
-            {previewOnly ? (
+            {!codeOnly ? (
               <>
                 <Separator
                   orientation="vertical"
